@@ -1,3 +1,5 @@
+// © 2019 Aaron Sami Abassi
+// Licensed under the Academic Free License version 3.0
 #include "function"
 #include <cstdio>
 
