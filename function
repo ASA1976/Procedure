@@ -32,7 +32,7 @@ namespace function {
      *     Pure abstract procedure class.
      * @details       
      *     This type is used to call any stored procedure matching the specified
-	 *     return and parameter types.
+     *     return and parameter types.
      * @tparam Resultant
      *     Return type of call.
      * @tparam ...Parametric
@@ -135,7 +135,7 @@ namespace function {
      *     Return and parameter type deduction constant expression object.
      * @details       
      *     This null pointer constant expression object is used to specify the
-	 *     return and parameter types of the call to a Designate template instance.
+     *     return and parameter types of the call to a Designate template instance.
      * @tparam Resultant
      *     Return type of call.
      * @tparam ...Parametric
@@ -153,7 +153,7 @@ namespace function {
      *     Designate a function as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
-	 *     procedural call to a function.
+     *     procedural call to a function.
      * @tparam Resultant
      *     Return type of call.
      * @tparam ...Parametric
@@ -177,7 +177,7 @@ namespace function {
      *     Designate a data object as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
-	 *     procedural call to a data object.
+     *     procedural call to a data object.
      * @tparam Typical
      *     Type of the data object.
      * @tparam Resultant
@@ -206,7 +206,7 @@ namespace function {
      *     Designate a data object method as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
-	 *     procedural call to a data object method.
+     *     procedural call to a data object method.
      * @tparam Typical
      *     Type of the data object.
      * @tparam Locative
