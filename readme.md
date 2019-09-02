@@ -17,6 +17,7 @@ programming audiences, please see
 in the
 [Relational Association Programming Basic Template Library for C++](https://github.com/ASA1976/RAP-BTL) 
 if a much more compact data area is desired with similar performance levels.
+This header file conforms to the ISO C++ 2014 language standard specification.
 
 ## Usage
 
@@ -39,6 +40,11 @@ lambda, one uses the overload with an object reference and null function pointer
 reference parameters (2).  To designate an object member function call, one uses 
 the overload with an object reference, constant pointer to member reference and
 null function pointer reference parameters (3).
+
+In order to deduce the return and parameter types for object call operator,
+lambda and object member function calls, the Deducation variable template 
+provides a null pointer to function constant expression which is provided to the
+Designate function template.
 
 ## Example
 
