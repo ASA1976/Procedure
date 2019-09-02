@@ -22,9 +22,9 @@ This header file conforms to the ISO C++ 2014 language standard specification.
 ## Usage
 
 The header is named 'function' and can either be included in a source project
-tree or installed as a standard header file on the system.  The header file 
-strictly contains one name space containing templates which are unused unless
-their scope is referenced after their inclusion.
+tree or installed as a standard system header file.  The header file strictly 
+contains one name space of templates which are unused unless their scope is 
+referenced after their inclusion.
 
 In order to call any stored procedure, one uses a template instance of the
 Procedural type template in the 'function' name space to specify the return type 

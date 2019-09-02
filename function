@@ -122,11 +122,9 @@ namespace function {
 
     private:
 
-        Typical&
-            object;
+        Typical& object;
 
-        const Locative&
-            method;
+        const Locative& method;
 
     };
 
