@@ -111,8 +111,8 @@ namespace function {
         Methodic( Typical& object, const Locative& method ) : 
             object( object ), method( method ) 
 		{
-			if (!method)
-				throw method;
+		    if (!method)
+		        throw method;
 		}
 
         Resultant operator()( Parametric... arguments ) const 
