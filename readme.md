@@ -42,7 +42,7 @@ the overload with an object reference, constant pointer to member reference and
 null function pointer reference parameters (3).
 
 In order to deduce the return and parameter types for object call operator,
-lambda and object member function calls, the Deducation variable template 
+lambda and object member function calls, the Deduction variable template 
 provides a null pointer to function constant expression which is provided to the
 Designate function template.
 
