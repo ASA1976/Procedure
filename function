@@ -135,7 +135,7 @@ namespace function {
      *     This null pointer constant expression object is used to specify the
      *     return and parameter types of the call to a Designate template instance.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
@@ -179,7 +179,7 @@ namespace function {
      * @tparam Typical
      *     Type of the data object.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
@@ -210,7 +210,7 @@ namespace function {
      * @tparam Locative
      *     Pointer to member function type.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
