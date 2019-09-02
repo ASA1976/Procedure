@@ -34,7 +34,7 @@ namespace function {
      *     This type is used to call any stored procedure matching the specified
      *     return and parameter types.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
@@ -58,7 +58,7 @@ namespace function {
      * @tparam Typical
      *     Type of the object.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
@@ -94,7 +94,7 @@ namespace function {
      * @tparam Locative
      *     Pointer to member function type.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
@@ -153,7 +153,7 @@ namespace function {
      *     This function template is used to create a representation of a 
      *     procedural call to a function.
      * @tparam Resultant
-     *     Return type of call.
+     *     Return type of the call.
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
