@@ -1,6 +1,6 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-#define FUNCTION_HEADER "function"
+#define FUNCTION_HEADER "function" // <function>
 #include FUNCTION_HEADER
 #include <cstdio>
 
