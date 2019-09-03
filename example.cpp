@@ -1,10 +1,11 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-#include "function"
+#define FUNCTION_HEADER "function"
+#include FUNCTION_HEADER
 #include <cstdio>
 
 using namespace function;
-using Invocative = const Procedural< void, const char* >;
+using Demonstrative = const Procedural< void, const char* >;
 
 const struct Class {
 
@@ -30,16 +31,17 @@ void Function( const char* message )
     puts( message );
 }
 
-void Demonstrate( Invocative& invoke, const char* message ) 
+void Demonstrate( Demonstrative& invoke, const char* message ) 
 {
     invoke( message );
 }
 
 int main() 
 {
-    constexpr auto& Type = Deduction< void, const char* >;
+    static const auto& Type = Deduction< void, const char* >;
+    static const auto& Member = &Class::member;
     Demonstrate( Designate( Object, Type ), "Functor" );
-    Demonstrate( Designate( Object, &Class::member, Type ), "Member Function" );
+    Demonstrate( Designate( Object, Member, Type ), "Member Function" );
     Demonstrate( Designate( Lambda, Type ), "Lambda" );
     Demonstrate( Designate( Function ), "Function" );
 }
