@@ -9,31 +9,19 @@ using Demonstrative = const Procedural< void, const char* >;
 
 const struct Class {
 
-    void operator()( const char* message ) const 
-    {
-        puts( message );
-    }
+    void operator()( const char* message ) const {puts( message );}
 
-    void member( const char* message ) const 
-    {
-        puts( message );
-    }
+    void member( const char* message ) const {puts( message );}
 
 } Object;
 
-auto Lambda = []( const char* message ) 
-{
-    puts( message );
-};
+auto Lambda = []( const char* message ) {puts( message );};
 
-void Function( const char* message ) 
-{
-    puts( message );
-}
+void Function( const char* message ) {puts( message );}
 
 void Demonstrate( Demonstrative& invoke, const char* message ) 
-{
-    invoke( message );
+{ 
+    invoke( message ); 
 }
 
 int main() 
