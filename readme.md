@@ -9,15 +9,16 @@ Licensed under the Academic Free License version 3.0
 
 This template header provides class templates and function templates, which
 allow a programmer to call any C++ invocation object with matching call return 
-and parameter types.  This implementation is intended for application 
+and parameter types.  This header file conforms to the ISO C++ 2014 language 
+standard specification.  This implementation is intended for application 
 development audiences primarily, including high performance computing 
-applications.  It is **not** intended for embedded and certain real-time systems
+applications.  It is **not intended for embedded** and certain real-time systems
 programming audiences, please see 
-[invocation](https://github.com/ASA1976/RAP-BTL/blob/master/invocation.hpp) 
+[invocation](https://github.com/ASA1976/RAP-BTL/blob/master/call_test.md#performance-analysis---stdfunction--invocation) 
 in the
 [Relational Association Programming Basic Template Library for C++](https://github.com/ASA1976/RAP-BTL) 
-if a much more compact data area is desired with similar performance levels.
-This header file conforms to the ISO C++ 2014 language standard specification.
+(header file invocation.hpp) if a much more compact data area is desired with 
+similar performance levels.
 
 ## Usage
 
