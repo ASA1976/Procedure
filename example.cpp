@@ -3,7 +3,6 @@
 #define FUNCTION_HEADER "function" // <function>
 #include FUNCTION_HEADER
 #include <iostream>
-#include <string>
 
 using namespace std;
 using namespace function;
