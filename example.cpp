@@ -6,7 +6,6 @@
 
 using namespace std;
 using namespace function;
-using Demonstrative = const Procedural< void >;
 
 const struct Class {
 
@@ -20,7 +19,7 @@ auto Lambda = [] {cout << "Lambda" << endl;};
 
 void Function() {cout << "Function" << endl;}
 
-void Demonstrate( Demonstrative& invoke ) 
+void Demonstrate( const Procedural< void >& invoke ) 
 { 
     invoke(); 
 }
