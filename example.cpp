@@ -7,31 +7,30 @@
 
 using namespace std;
 using namespace function;
-using Demonstrative = const Procedural< void, const string& >;
+using Demonstrative = const Procedural< void >;
 
 const struct Class {
 
-    void operator()( const string& message ) const {cout << message << endl;}
+    void operator()() const {cout << "Functor" << endl;}
 
-    void member( const string& message ) const {cout << message << endl;}
+    void member() const {cout << "Member Function" << endl;}
 
 } Object;
 
-auto Lambda = []( const string& message ) {cout << message << endl;};
+auto Lambda = [] {cout << "Lambda" << endl;};
 
-void Function( const string& message ) {cout << message << endl;}
+void Function() {cout << "Function" << endl;}
 
-void Demonstrate( Demonstrative& invoke, const string& message ) 
+void Demonstrate( Demonstrative& invoke ) 
 { 
-    invoke( message ); 
+    invoke(); 
 }
 
 int main() 
 {
-    static const auto& Type = Deduction< void, const string& >;
-    static const auto& Member = &Class::member; // &decltype(Object)::member
-    Demonstrate( Designate( Object, Type ), "Functor" );
-    Demonstrate( Designate( Object, Member, Type ), "Member Function" );
-    Demonstrate( Designate( Lambda, Type ), "Lambda" );
-    Demonstrate( Designate( Function ), "Function" );
+    static const auto& Type = Deduction< void >;
+    Demonstrate( Designate( Object, Type ) );
+    Demonstrate( Designate( Object, &Class::member, Type ) );
+    Demonstrate( Designate( Lambda, Type ) );
+    Demonstrate( Designate( Function ) );
 }

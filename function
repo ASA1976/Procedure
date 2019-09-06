@@ -80,7 +80,7 @@ namespace function {
 
     private:
 
-        Typical& object;
+        Typical& object;  /**< Callable object reference. */
 
     };
 
@@ -108,7 +108,7 @@ namespace function {
 
     public:
 
-        Methodic( Typical& object, const Locative& method ) : 
+        Methodic( Typical& object, const Locative method ) : 
             object( object ), method( method ) 
 		{
 		    if (!method)
@@ -122,9 +122,9 @@ namespace function {
 
     private:
 
-        Typical& object;
+        Typical& object; /**< User defined object reference. */
 
-        const Locative& method;
+        const Locative method; /**< Member function pointer. */
 
     };
 
@@ -192,7 +192,7 @@ namespace function {
     Designate( 
         Typical& 
             object, 
-        Functional< Resultant, Parametric... >* const& 
+        Functional< Resultant, Parametric... >*
             deduction 
     ) {
         using Specific = Objective< Typical, Resultant, Parametric... >;
@@ -224,9 +224,9 @@ namespace function {
     Designate( 
         Typical& 
             object, 
-        const Locative& 
+        const Locative 
             method, 
-        Functional< Resultant, Parametric... >* const& 
+        Functional< Resultant, Parametric... >* 
             deduction 
     ) {
         using Specific = Methodic< Typical, Locative, Resultant, Parametric... >;

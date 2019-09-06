@@ -39,8 +39,8 @@ the 'function' name space.  To designate a function, one uses the overload with
 a function reference parameter (1).  To designate an object call operator or 
 lambda, one uses the overload with an object reference and null function pointer 
 reference parameters (2).  To designate an object member function call, one uses 
-the overload with an object reference, constant pointer to member reference and
-null function pointer reference parameters (3).
+the overload with an object reference, constant pointer to member and null
+function pointer reference parameters (3).
 
 In order to deduce the return and parameter types for object call operator,
 lambda and object member function calls, the Deduction variable template 
