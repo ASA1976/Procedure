@@ -26,9 +26,8 @@ void Demonstrate( const Procedural< void >& invoke )
 
 int main() 
 {
-    static const auto& Type = Deduction< void >;
-    Demonstrate( Designate( Object, Type ) );
-    Demonstrate( Designate( Object, &Class::member, Type ) );
-    Demonstrate( Designate( Lambda, Type ) );
+    Demonstrate( Designate( Object, Deduction< void > ) );
+    Demonstrate( Designate( Object, &Class::member, Deduction< void > ) );
+    Demonstrate( Designate( Lambda, Deduction< void > ) );
     Demonstrate( Designate( Function ) );
 }
