@@ -1,7 +1,6 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-#define FUNCTION_HEADER "function" // <function>
-#include FUNCTION_HEADER // VS IDE Workaround
+#include "function.hpp"
 #include <iostream>
 
 using namespace std;

@@ -22,10 +22,12 @@ similar performance levels.
 
 ## Usage
 
-The header is named 'function' and can either be included in a source project
-tree or installed as a standard system header file.  The header file strictly 
-contains one name space with templates which are unused unless their scope is 
-referenced after their inclusion.
+The header is named 
+['function.hpp'](https://github.com/ASA1976/Function/blob/master/function.hpp#L1) 
+and can either be included in a source project tree or installed as a standard 
+system header file.  The header file strictly contains one name space with 
+templates which are unused unless their scope is referenced after their 
+inclusion.
 
 In order to call any stored procedure, one uses a template instance of the
 Procedural type template in the 'function' name space to specify the return type 
