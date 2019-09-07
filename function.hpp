@@ -88,7 +88,9 @@ namespace function {
      * @brief         
      *     Object method invocation class.
      * @details       
-     *     This type is used to call an object method.
+     *     This type is used to call an object method.  Define the macro 
+     *     FUNCTION_NOTHROW to prevent throwing the null member function
+     *     pointer if exceptions are not supported.
      * @tparam Typical
      *     Type of the object.
      * @tparam Locative
@@ -111,8 +113,10 @@ namespace function {
         Methodic( Typical& object, const Locative method ) : 
             object( object ), method( method ) 
 		{
+#ifndef FUNCTION_NOTHROW
 		    if (!method)
 		        throw method;
+#endif
 		}
 
         Resultant operator()( Parametric... arguments ) const 

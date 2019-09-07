@@ -1,5 +1,6 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
+// #define FUNCTION_NOTHROW
 #include "function.hpp"
 #include <iostream>
 
