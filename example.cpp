@@ -1,11 +1,11 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-// #define FUNCTION_NOTHROW
-#include "function.hpp"
+// #define PROCEDURE_NOTHROW
+#include "procedure.hpp"
 #include <iostream>
 
 using namespace std;
-using namespace function;
+using namespace procedure;
 
 const struct Class {
 
@@ -26,8 +26,8 @@ void Demonstrate( const Procedural<void>& invoke )
 
 int main() 
 {
-    Demonstrate( Designate( Object, Deduction<void> ) );
-    Demonstrate( Designate( Object, &Class::member, Deduction<void> ) );
-    Demonstrate( Designate( Lambda, Deduction<void> ) );
-    Demonstrate( Designate( Function ) );
+    Demonstrate( Procure( Object, Guide<void> ) );
+    Demonstrate( Procure( Object, &Class::member, Guide<void> ) );
+    Demonstrate( Procure( Lambda, Guide<void> ) );
+    Demonstrate( Procure( Function ) );
 }

@@ -1,4 +1,4 @@
-# Function
+# Procedure
 #### Universal C++ stored procedure call interface for application programming
 
 © 2019 Aaron Sami Abassi
@@ -8,7 +8,7 @@ Licensed under the Academic Free License version 3.0
 ## Introduction
 
 This template header provides class templates and function templates, which
-allow a programmer to call any C++ invocation object with matching call return 
+allow a programmer to call any C++ stored procedure with matching call return 
 and parameter types.  This header file conforms to the ISO C++ 2014 language 
 standard specification.  This implementation is intended for application 
 development audiences primarily, including high performance computing 
@@ -23,31 +23,31 @@ similar performance levels.
 ## Usage
 
 The header is named 
-['function.hpp'](https://github.com/ASA1976/Function/blob/master/function.hpp#L1) 
+['procedure.hpp'](https://github.com/ASA1976/Function/blob/master/procedure.hpp#L1) 
 and can either be included in a source project tree or installed as a standard 
 system header file.  The header file strictly contains one name space with 
 templates which are unused unless their scope is referenced after their 
 inclusion.
 
 In order to call any stored procedure, one uses a template instance of the
-Procedural type template in the 'function' name space to specify the return type 
-and parameter types for the call.  Constant references to such base class 
+Procedural type template in the 'procedure' name space to specify the return 
+type and parameter types for the call.  Constant references to such base class 
 objects are used to invoke the virtual call operator which is implemented by the 
-designated derived class.
+derived class.
 
-In order to designate a function, lambda, object call operator or object member 
-function call, one invokes one the overloaded Designate function templates in 
-the 'function' name space.  To designate a function, one uses the overload with
-a function reference parameter (1).  To designate an object call operator or 
-lambda, one uses the overload with an object reference and null function pointer 
-reference parameters (2).  To designate an object member function call, one uses 
-the overload with an object reference, constant pointer to member and null
-function pointer reference parameters (3).
+In order to call a function, lambda, object call operator or object member 
+function call, one invokes one the overloaded Procure function templates in 
+the 'procedure' name space.  To call a function, one uses the overload with
+a function reference parameter (1).  To call an object call operator or lambda,
+one uses the overload with an object reference and null function pointer 
+parameters (2).  To call an object member function call, one uses the overload 
+with an object reference, constant pointer to member and null function pointer 
+parameters (3).
 
 In order to deduce the return and parameter types for object call operator,
-lambda and object member function calls, the Deduction variable template 
+lambda and object member function calls, the Guide variable template 
 provides a null pointer to function constant expression which is provided to the
-Designate function template.
+Procure function template.
 
 ## Example
 
