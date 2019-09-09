@@ -2,9 +2,8 @@
 // Licensed under the Academic Free License version 3.0
 #ifndef TEST_CONDITIONS
 #define TEST_CONDITIONS
+#define TEST_CONDITIONS_LOOP 1000000
 #include <cstdio>
-
-constexpr size_t LoopCount = 1000000;
 
 struct Test1Typical {
     void operator()() {puts("Test1");}
@@ -49,7 +48,7 @@ static inline void RunTests(
     static auto& RunTest2 = RunTest<Referential, Test2Active, Test2Typical&>;
     static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
     static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
-    for (size_t count = 0; count < LoopCount; count++) {
+    for (size_t count = 0; count < TEST_CONDITIONS_LOOP; count++) {
         RunTest1( call, produce_test1, Test1 );
         RunTest2( call, produce_test2, Test2 );
         RunTest3( call, produce_test3, Test3 );
@@ -57,4 +56,5 @@ static inline void RunTests(
     }
 }
 
+#undef TEST_CONDITIONS_LOOP
 #endif
