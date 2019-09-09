@@ -23,7 +23,7 @@ using Test3Typical = decltype(Test3);
 using Test4Methodic = decltype(&Test4Typical::run);
 
 template <class Referential>
-using Correspondent = void( Referential& );
+using Correspondent = void( Referential );
 
 template <class Active, class ...Composite>
 using Conducive = Active( Composite... );
