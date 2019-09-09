@@ -25,16 +25,16 @@ using Test4Methodic = decltype(&Test4Typical::run);
 template <class Referential>
 using Correspondent = void( Referential );
 
-template <class Active, class ...Composite>
-using Conducive = Active( Composite... );
+template <class Active, class ...Acquisitional>
+using Conducive = Active( Acquisitional... );
 
-template <class Referential, class Active, class ...Composite>
+template <class Referential, class Active, class ...Acquisitional>
 static inline void RunTest( 
     Correspondent<Referential>& call, 
-    Conducive<Active, Composite...>& produce, 
-    Composite... composition 
+    Conducive<Active, Acquisitional...>& produce, 
+    Acquisitional... acquisition 
 ) {
-    call( produce( composition... ) );
+    call( produce( acquisition... ) );
 }
 
 template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
