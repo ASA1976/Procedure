@@ -26,6 +26,5 @@ int main()
     static auto& Produce2 = Produce<Test2Typical>;
     static auto& Produce3 = Produce<Test3Typical>;
     static auto& Produce4 = Produce<Test4Typical, Test4Methodic>;
-    for (size_t count = 0; count < LoopCount; count++)
-        RunAllTests( Consume, Produce1, Produce2, Produce3, Produce4 );
+    RunTests( Consume, Produce1, Produce2, Produce3, Produce4 );
 }

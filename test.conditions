@@ -38,7 +38,7 @@ static inline void RunTest(
 }
 
 template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
-static inline void RunAllTests( 
+static inline void RunTests( 
     Correspondent<Referential>& call, 
     Conducive<Test1Active, Test1Typical&>& produce_test1, 
     Conducive<Test2Active, Test2Typical&>& produce_test2, 
@@ -49,10 +49,12 @@ static inline void RunAllTests(
     static auto& RunTest2 = RunTest<Referential, Test2Active, Test2Typical&>;
     static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
     static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
-    RunTest1( call, produce_test1, Test1 );
-    RunTest2( call, produce_test2, Test2 );
-    RunTest3( call, produce_test3, Test3 );
-    RunTest4( call, produce_test4, Test4, &Test4Typical::run );
+    for (size_t count = 0; count < LoopCount; count++) {
+        RunTest1( call, produce_test1, Test1 );
+        RunTest2( call, produce_test2, Test2 );
+        RunTest3( call, produce_test3, Test3 );
+        RunTest4( call, produce_test4, Test4, &Test4Typical::run );
+    }
 }
 
 #endif
