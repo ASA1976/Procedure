@@ -30,9 +30,9 @@ using Conducive = Active( Composite... );
 
 template <class Referential, class Active, class ...Composite>
 static inline void RunTest( 
-	Correspondent<Referential>& call, 
-	Conducive<Active, Composite...>& produce, 
-	Composite ...composition 
+    Correspondent<Referential>& call, 
+    Conducive<Active, Composite...>& produce, 
+    Composite ...composition 
 ) {
     call( produce( composition... ) );
 }
