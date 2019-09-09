@@ -10,11 +10,15 @@ void Consume( const Procedural<void>& );
 
 template <class Typical>
 static inline auto Produce( Typical& object ) 
-{return Procure( object, Guide<void> );}
+{
+    return Procure( object, Guide<void> );
+}
 
 template <class Typical, class MethodLocative>
 static inline auto Produce( Typical& object, MethodLocative method ) 
-{return Procure( object, method, Guide<void> );}
+{
+    return Procure( object, method, Guide<void> );
+}
 
 int main()
 {

@@ -10,11 +10,15 @@ void Consume( const function<void()>& );
 
 template <typename Typical>
 static inline function<void()> Produce( Typical& object ) 
-{return object;}
+{
+    return object;
+}
 
 template <class Typical, class MethodLocative>
 static inline function<void()> Produce( Typical& object, MethodLocative method ) 
-{return bind( method, object );}
+{
+    return bind( method, object );
+}
 
 int main()
 {
