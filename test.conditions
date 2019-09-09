@@ -22,23 +22,23 @@ using Test3Typical = decltype(Test3);
 using Test4Methodic = decltype(&Test4Typical::run);
 
 template <class Referential>
-using Correspondent = void( Referential );
+using Applicatory = void( Referential );
 
 template <class Active, class ...Acquisitional>
 using Conducive = Active( Acquisitional... );
 
 template <class Referential, class Active, class ...Acquisitional>
 static inline void RunTest( 
-    Correspondent<Referential>& call, 
+    Applicatory<Referential>& invoke, 
     Conducive<Active, Acquisitional...>& produce, 
     Acquisitional... acquisition 
 ) {
-    call( produce( acquisition... ) );
+    invoke( produce( acquisition... ) );
 }
 
 template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
 static inline void RunTests( 
-    Correspondent<Referential>& call, 
+    Applicatory<Referential>& invoke, 
     Conducive<Test1Active, Test1Typical&>& produce_test1, 
     Conducive<Test2Active, Test2Typical&>& produce_test2, 
     Conducive<Test3Active, Test3Typical&>& produce_test3, 
@@ -49,10 +49,10 @@ static inline void RunTests(
     static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
     static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
     for (size_t count = 0; count < TEST_CONDITIONS_LOOP; count++) {
-        RunTest1( call, produce_test1, Test1 );
-        RunTest2( call, produce_test2, Test2 );
-        RunTest3( call, produce_test3, Test3 );
-        RunTest4( call, produce_test4, Test4, &Test4Typical::run );
+        RunTest1( invoke, produce_test1, Test1 );
+        RunTest2( invoke, produce_test2, Test2 );
+        RunTest3( invoke, produce_test3, Test3 );
+        RunTest4( invoke, produce_test4, Test4, &Test4Typical::run );
     }
 }
 

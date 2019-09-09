@@ -6,7 +6,7 @@
 using namespace std;
 
 // Link with test_extern.cpp (only)
-void Consume( const function<void()>& );
+void Invoke( const function<void()>& );
 
 template <typename Typical>
 static inline function<void()> Produce( Typical& object ) 
@@ -26,5 +26,5 @@ int main()
     static auto& Produce2 = Produce<Test2Typical>;
     static auto& Produce3 = Produce<Test3Typical>;
     static auto& Produce4 = Produce<Test4Typical, Test4Methodic>;
-    RunTests( Consume, Produce1, Produce2, Produce3, Produce4 );
+    RunTests( Invoke, Produce1, Produce2, Produce3, Produce4 );
 }
