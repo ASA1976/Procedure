@@ -25,27 +25,30 @@ using Test4Methodic = decltype(&Test4Typical::run);
 template <class Referential>
 using Correspondent = void( Referential& );
 
-template <class Invocative, class ...Composite>
-using Conducive = Invocative( Composite... );
+template <class Active, class ...Composite>
+using Conducive = Active( Composite... );
 
-template <class Referential, class Invocative, class ...Composite>
-static inline void RunTest( Correspondent<Referential>& call, Conducive<Invocative, Composite...>& produce, Composite ...composition ) 
-{
+template <class Referential, class Active, class ...Composite>
+static inline void RunTest( 
+	Correspondent<Referential>& call, 
+	Conducive<Active, Composite...>& produce, 
+	Composite ...composition 
+) {
     call( produce( composition... ) );
 }
 
-template <class Referential, class Test1Invocative, class Test2Invocative, class Test3Invocative, class Test4Invocative>
+template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
 static inline void RunAllTests( 
     Correspondent<Referential>& call, 
-    Conducive<Test1Invocative, Test1Typical&>& produce_test1, 
-    Conducive<Test2Invocative, Test2Typical&>& produce_test2, 
-    Conducive<Test3Invocative, Test3Typical&>& produce_test3, 
-    Conducive<Test4Invocative, Test4Typical&, Test4Methodic>& produce_test4
+    Conducive<Test1Active, Test1Typical&>& produce_test1, 
+    Conducive<Test2Active, Test2Typical&>& produce_test2, 
+    Conducive<Test3Active, Test3Typical&>& produce_test3, 
+    Conducive<Test4Active, Test4Typical&, Test4Methodic>& produce_test4
 ) {
-    static auto& RunTest1 = RunTest<Referential, Test1Invocative, Test1Typical&>;
-    static auto& RunTest2 = RunTest<Referential, Test2Invocative, Test2Typical&>;
-    static auto& RunTest3 = RunTest<Referential, Test3Invocative, Test3Typical&>;
-    static auto& RunTest4 = RunTest<Referential, Test4Invocative, Test4Typical&, Test4Methodic>;
+    static auto& RunTest1 = RunTest<Referential, Test1Active, Test1Typical&>;
+    static auto& RunTest2 = RunTest<Referential, Test2Active, Test2Typical&>;
+    static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
+    static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
     RunTest1( call, produce_test1, Test1 );
     RunTest2( call, produce_test2, Test2 );
     RunTest3( call, produce_test3, Test3 );
