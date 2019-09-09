@@ -5,7 +5,7 @@
 
 using namespace procedure;
 
-// Link with test_extern.cpp
+// Link with test_extern.cpp (only)
 void Consume( const Procedural<void>& );
 
 template <class Typical>
@@ -16,16 +16,12 @@ template <class Typical, class MethodLocative>
 static inline auto Produce( Typical& object, MethodLocative method ) 
 {return Procure( object, method, Guide<void> );}
 
-static inline void RunAllTests() 
-{
-    RunTest1( Consume, Produce<Test1Typical> );
-    RunTest2( Consume, Produce<Test2Typical> );
-    RunTest3( Consume, Produce<Test3Typical> );
-    RunTest4( Consume, Produce<Test4Typical, Test4Methodic> );
-}
-
 int main()
 {
+    static auto& Produce1 = Produce<Test1Typical>;
+    static auto& Produce2 = Produce<Test2Typical>;
+    static auto& Produce3 = Produce<Test3Typical>;
+    static auto& Produce4 = Produce<Test4Typical, Test4Methodic>;
     for (size_t count = 0; count < LoopCount; count++)
-        RunAllTests();
+        RunAllTests( Consume, Produce1, Produce2, Produce3, Produce4 );
 }

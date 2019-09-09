@@ -34,20 +34,22 @@ template <class Referential, class Invocative, class ...Composite>
 static inline void RunTest( Correspondent<Referential>& call, Conducive<Invocative, Composite...>& produce, Composite ...composition ) 
 {call( produce( composition... ) );}
 
-template <class Referential, class Invocative>
-static inline void RunTest1( Correspondent<Referential>& call, Conducive<Invocative, Test1Typical&>& produce ) 
-{RunTest<Referential, Invocative, Test1Typical&>( call, produce, Test1 );}
-
-template <class Referential, class Invocative>
-static inline void RunTest2( Correspondent<Referential>& call, Conducive<Invocative, Test2Typical&>& produce ) 
-{RunTest<Referential, Invocative, Test2Typical&>( call, produce, Test2 );}
-
-template <class Referential, class Invocative>
-static inline void RunTest3( Correspondent<Referential>& call, Conducive<Invocative, Test3Typical&>& produce ) 
-{RunTest<Referential, Invocative, Test3Typical&>( call, produce, Test3 );}
-
-template <class Referential, class Invocative>
-static inline void RunTest4( Correspondent<Referential>& call, Conducive<Invocative, Test4Typical&, Test4Methodic>& produce ) 
-{RunTest<Referential, Invocative, Test4Typical&, Test4Methodic>( call, produce, Test4, &Test4Typical::run );}
+template <class Referential, class Test1Invocative, class Test2Invocative, class Test3Invocative, class Test4Invocative>
+static inline void RunAllTests( 
+    Correspondent<Referential>& call, 
+	Conducive<Test1Invocative, Test1Typical&>& produce_test1, 
+	Conducive<Test2Invocative, Test2Typical&>& produce_test2, 
+	Conducive<Test3Invocative, Test3Typical&>& produce_test3, 
+	Conducive<Test4Invocative, Test4Typical&, Test4Methodic>& produce_test4
+) {
+	static auto& RunTest1 = RunTest<Referential, Test1Invocative, Test1Typical&>;
+	static auto& RunTest2 = RunTest<Referential, Test2Invocative, Test2Typical&>;
+	static auto& RunTest3 = RunTest<Referential, Test3Invocative, Test3Typical&>;
+	static auto& RunTest4 = RunTest<Referential, Test4Invocative, Test4Typical&, Test4Methodic>;
+    RunTest1( call, produce_test1, Test1 );
+    RunTest2( call, produce_test2, Test2 );
+    RunTest3( call, produce_test3, Test3 );
+    RunTest4( call, produce_test4, Test4, &Test4Typical::run );
+}
 
 #endif
