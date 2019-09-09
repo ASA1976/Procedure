@@ -20,8 +20,8 @@ auto Lambda = [] {cout << "Lambda" << endl;};
 void Function() {cout << "Function" << endl;}
 
 void Demonstrate( const Procedural<void>& invoke ) 
-{ 
-    invoke(); 
+{
+    invoke();
 }
 
 int main() 
@@ -29,5 +29,6 @@ int main()
     Demonstrate( Procure( Object, Guide<void> ) );
     Demonstrate( Procure( Object, &Class::member, Guide<void> ) );
     Demonstrate( Procure( Lambda, Guide<void> ) );
-    Demonstrate( Procure( Function ) );
+    Demonstrate( Procure( Function, Guide<void> ) ); // Matched
+    Demonstrate( Procure( Function ) ); // Deduced
 }

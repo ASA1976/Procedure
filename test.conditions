@@ -1,0 +1,53 @@
+// © 2019 Aaron Sami Abassi
+// Licensed under the Academic Free License version 3.0
+#ifndef TEST_CONDITIONS
+#define TEST_CONDITIONS
+#include <cstdio>
+
+constexpr size_t LoopCount = 1000000;
+
+struct Test1Typical {
+    void operator()() {puts("Test1");}
+} Test1;
+
+auto Test2 = []() -> void
+{puts("Test2");};
+
+void Test3()
+{puts("Test3");}
+
+struct Test4Typical {
+    void run() {puts( "Test4" );}
+} Test4;
+
+using Test2Typical = decltype(Test2);
+using Test3Typical = decltype(Test3);
+using Test4Methodic = decltype(&Test4Typical::run);
+
+template <class Referential>
+using Correspondent = void( Referential& );
+
+template <class Invocative, class ...Composite>
+using Conducive = Invocative( Composite... );
+
+template <class Referential, class Invocative, class ...Composite>
+static inline void RunTest( Correspondent<Referential>& call, Conducive<Invocative, Composite...>& produce, Composite ...composition ) 
+{call( produce( composition... ) );}
+
+template <class Referential, class Invocative>
+static inline void RunTest1( Correspondent<Referential>& call, Conducive<Invocative, Test1Typical&>& produce ) 
+{RunTest<Referential, Invocative, Test1Typical&>( call, produce, Test1 );}
+
+template <class Referential, class Invocative>
+static inline void RunTest2( Correspondent<Referential>& call, Conducive<Invocative, Test2Typical&>& produce ) 
+{RunTest<Referential, Invocative, Test2Typical&>( call, produce, Test2 );}
+
+template <class Referential, class Invocative>
+static inline void RunTest3( Correspondent<Referential>& call, Conducive<Invocative, Test3Typical&>& produce ) 
+{RunTest<Referential, Invocative, Test3Typical&>( call, produce, Test3 );}
+
+template <class Referential, class Invocative>
+static inline void RunTest4( Correspondent<Referential>& call, Conducive<Invocative, Test4Typical&, Test4Methodic>& produce ) 
+{RunTest<Referential, Invocative, Test4Typical&, Test4Methodic>( call, produce, Test4, &Test4Typical::run );}
+
+#endif
