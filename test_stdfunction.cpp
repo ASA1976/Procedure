@@ -8,7 +8,7 @@ using namespace std;
 // Link with test_extern.cpp (only)
 void Invoke( const function<void()>& );
 
-template <typename Typical>
+template <class Typical>
 static inline function<void()> Produce( Typical& object ) 
 {
     return object;
