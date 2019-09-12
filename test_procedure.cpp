@@ -13,8 +13,8 @@ static inline auto Produce( Typical& object )
     return Procure( object, Guide<void> );
 }
 
-template <class Typical, class MethodLocative>
-static inline auto Produce( Typical& object, MethodLocative method ) 
+template <class Typical, class MethodLocational>
+static inline auto Produce( Typical& object, MethodLocational method ) 
 {
     return Procure( object, method, Guide<void> );
 }

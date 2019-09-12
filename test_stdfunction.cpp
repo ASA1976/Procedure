@@ -13,8 +13,8 @@ static inline function<void()> Produce( Typical& object )
     return object;
 }
 
-template <class Typical, class MethodLocative>
-static inline function<void()> Produce( Typical& object, MethodLocative method ) 
+template <class Typical, class MethodLocational>
+static inline function<void()> Produce( Typical& object, MethodLocational method ) 
 {
     return bind( method, object );
 }
