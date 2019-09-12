@@ -18,8 +18,8 @@ please see
 [invocation](https://github.com/ASA1976/RAP-BTL/blob/master/invocation.hpp#L1) 
 in the
 [Relational Association Programming Basic Template Library for C++](https://github.com/ASA1976/RAP-BTL) 
-if total image size or trivial copying of call wrapper objects is required with
-similar performance levels.
+if stringent memory space or trivial copying of call wrapper objects are 
+required with similar performance levels.
 
 ## Usage
 
