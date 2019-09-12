@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Compiler Assembly output should not be included
+*.s linguist-vendored
+# Testing scripts should not be included
+*.sh linguist-vendored

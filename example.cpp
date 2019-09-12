@@ -1,6 +1,6 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-// #define PROCEDURE_NOTHROW
+// #define PROCEDURE_MODULE_NOTHROW
 #include "procedure.hpp"
 #include <iostream>
 

@@ -71,7 +71,7 @@ namespace procedure {
      *     Object method invocation class.
      * @details       
      *     This type is used to call an object method.  Define the macro 
-     *     FUNCTION_NOTHROW to prevent throwing the null member function
+     *     PROCEDURE_MODULE_NOTHROW to prevent throwing the null member function
      *     pointer if exceptions are not supported.
      * @tparam Typical
      *     Type of the object.
@@ -93,7 +93,7 @@ namespace procedure {
         Methodic( Typical& object, const Locative method ) : 
             object( object ), method( method ) 
         {
-#ifndef PROCEDURE_NOTHROW
+#ifndef PROCEDURE_MODULE_NOTHROW
             if (!method)
                 throw method;
 #endif
