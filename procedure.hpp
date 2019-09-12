@@ -21,10 +21,7 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Resultant,
-        class ...Parametric
-    >
+    template <class Resultant, class ...Parametric>
     using Functional = Resultant( Parametric... );
 
     /**
@@ -38,16 +35,10 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Resultant,
-        class ...Parametric
-    >
+    template <class Resultant, class ...Parametric>
     class Procedural {
-
     public:
-
         virtual Resultant operator()( Parametric... ) const = 0;
-
     };
 
     /**
@@ -62,26 +53,16 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Typical,
-        class Resultant,
-        class ...Parametric
-    >
-    class Objective final : public Procedural< Resultant, Parametric... > {
-
+    template <class Typical, class Resultant, class ...Parametric>
+    class Objective final : public Procedural<Resultant, Parametric...> {
     public:
-
         Objective( Typical& object ) : object( object ) {}
-
         Resultant operator()( Parametric... arguments ) const 
         {
             return object( arguments... );
         }
-
     private:
-
         Typical& object;  /**< Callable object reference. */
-
     };
 
     /**
@@ -106,10 +87,8 @@ namespace procedure {
         class Resultant,
         class ...Parametric
     >
-    class Methodic final : public Procedural< Resultant, Parametric... > {
-
+    class Methodic final : public Procedural<Resultant, Parametric...> {
     public:
-
         Methodic( Typical& object, const Locative method ) : 
             object( object ), method( method ) 
         {
@@ -118,18 +97,13 @@ namespace procedure {
                 throw method;
 #endif
         }
-
         Resultant operator()( Parametric... arguments ) const 
         {
             return (object.*method)( arguments... );
         }
-
     private:
-
         Typical& object; /**< User defined object reference. */
-
         const Locative method; /**< Member function pointer. */
-
     };
 
     /**
@@ -143,12 +117,9 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Resultant,
-        class ...Parametric
-    >
+    template <class Resultant, class ...Parametric>
     constexpr Functional< Resultant, Parametric... >* 
-        Guide = 0;
+    Guide = 0;
 
     /**
      * @brief         
@@ -161,15 +132,9 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Resultant,
-        class ...Parametric
-    >
+    template <class Resultant, class ...Parametric >
     static constexpr Objective< Resultant( Parametric... ), Resultant, Parametric... >
-    Procure( 
-        Functional< Resultant, Parametric... >& 
-            function 
-    ) {
+    Procure( Functional< Resultant, Parametric... >& function ) {
         using Specific = Objective< Resultant( Parametric... ), Resultant, Parametric... >;
         return Specific( function );
     }
@@ -187,18 +152,10 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Typical,
-        class Resultant,
-        class ...Parametric
-    >
+    template <class Typical, class Resultant, class ...Parametric>
     static constexpr Objective< Typical, Resultant, Parametric... >
-    Procure( 
-        Typical& 
-            object, 
-        Functional< Resultant, Parametric... >*
-            guide 
-    ) {
+    Procure( Typical& object, Functional< Resultant, Parametric... >* guide ) 
+    {
         using Specific = Objective< Typical, Resultant, Parametric... >;
         return Specific( object );
     }
@@ -226,12 +183,9 @@ namespace procedure {
     >
     static constexpr Methodic< Typical, Locative, Resultant, Parametric... >
     Procure( 
-        Typical& 
-            object, 
-        const Locative 
-            method, 
-        Functional< Resultant, Parametric... >* 
-            guide 
+        Typical& object, 
+        const Locative method, 
+        Functional< Resultant, Parametric... >* guide 
     ) {
         using Specific = Methodic< Typical, Locative, Resultant, Parametric... >;
         return Specific( object, method );
