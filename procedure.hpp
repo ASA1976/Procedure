@@ -112,12 +112,12 @@ namespace procedure {
 
         Methodic( Typical& object, const Locative method ) : 
             object( object ), method( method ) 
-		{
+        {
 #ifndef PROCEDURE_NOTHROW
-		    if (!method)
-		        throw method;
+            if (!method)
+                throw method;
 #endif
-		}
+        }
 
         Resultant operator()( Parametric... arguments ) const 
         {
