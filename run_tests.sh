@@ -1,5 +1,7 @@
 #!/bin/sh
-echo -n "Compiler: " > test_results.txt
+echo -n "When: " > test_results.txt
+date -u >> test_results.txt
+echo -n "Compiler: " >> test_results.txt
 clang++ --version >> test_results.txt
 clang++ -pedantic -Wall -O -o test_procedure test_procedure.cpp test_extern.cpp
 clang++ -pedantic -Wall -O -o test_stdfunction test_stdfunction.cpp test_extern.cpp
