@@ -15,7 +15,8 @@ namespace procedure {
      * @brief 
      *     Function type.
      * @details 
-     *     This type is used to represent any function type.
+     *     This type is used to represent any function type.  It is useful for
+     *     clarity when specifying the type of an identifier.
      * @tparam Resultant
      *     Return type of the call.
      * @tparam ...Parametric
@@ -45,9 +46,9 @@ namespace procedure {
      * @brief         
      *     Object invocation class.
      * @details       
-     *     This type is used to call any object.
+     *     This type is used to call any purely procedural object.
      * @tparam Typical
-     *     Type of the object.
+     *     Type of the call object.
      * @tparam Resultant
      *     Return type of the call.
      * @tparam ...Parametric
@@ -133,9 +134,9 @@ namespace procedure {
      *     Parameter pack which represents the parameter types of the call.
      */
     template <class Resultant, class ...Parametric >
-    static constexpr Objective< Resultant( Parametric... ), Resultant, Parametric... >
-    Procure( Functional< Resultant, Parametric... >& function ) {
-        using Specific = Objective< Resultant( Parametric... ), Resultant, Parametric... >;
+    static constexpr Objective<Resultant( Parametric... ), Resultant, Parametric...>
+    Procure( Functional<Resultant, Parametric...>& function ) {
+        using Specific = Objective<Resultant( Parametric... ), Resultant, Parametric...>;
         return Specific( function );
     }
 
@@ -153,10 +154,10 @@ namespace procedure {
      *     Parameter pack which represents the parameter types of the call.
      */
     template <class Typical, class Resultant, class ...Parametric>
-    static constexpr Objective< Typical, Resultant, Parametric... >
-    Procure( Typical& object, Functional< Resultant, Parametric... >* guide ) 
+    static constexpr Objective<Typical, Resultant, Parametric...>
+    Procure( Typical& object, Functional<Resultant, Parametric...>* guide ) 
     {
-        using Specific = Objective< Typical, Resultant, Parametric... >;
+        using Specific = Objective<Typical, Resultant, Parametric...>;
         return Specific( object );
     }
 
@@ -181,13 +182,13 @@ namespace procedure {
         class Resultant,
         class ...Parametric
     >
-    static constexpr Methodic< Typical, Locative, Resultant, Parametric... >
+    static constexpr Methodic<Typical, Locative, Resultant, Parametric...>
     Procure( 
         Typical& object, 
         const Locative method, 
-        Functional< Resultant, Parametric... >* guide 
+        Functional<Resultant, Parametric...>* guide 
     ) {
-        using Specific = Methodic< Typical, Locative, Resultant, Parametric... >;
+        using Specific = Methodic<Typical, Locative, Resultant, Parametric...>;
         return Specific( object, method );
     }
 
