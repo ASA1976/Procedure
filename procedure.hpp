@@ -208,7 +208,7 @@ namespace procedure {
      *     Designate a data object method as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
-     *     procedural call to a data object method.
+     *     procedural call to a data object member function.
      * @tparam Typical
      *     Type of the data object.
      * @tparam Locative
