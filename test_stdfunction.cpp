@@ -1,6 +1,5 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-#include "test.conditions"
 #include <functional>
 
 using namespace std;
@@ -20,6 +19,7 @@ static inline function<void()> Produce( Typical& object, MethodLocative method )
     return bind( method, object );
 }
 
+#include "test.conditions"
 int main()
 {
     static auto& Produce1 = Produce<Test1Typical>;

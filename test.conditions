@@ -2,7 +2,7 @@
 // Licensed under the Academic Free License version 3.0
 #ifndef TEST_CONDITIONS
 #define TEST_CONDITIONS
-#define TEST_CONDITIONS_LOOP 1000000
+#define TEST_CONDITIONS_LOOP 10000000
 #include <cstdio>
 
 struct Test1Typical {
@@ -39,20 +39,20 @@ static inline void RunTest(
 template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
 static inline void RunTests( 
     Applicatory<Referential>& invoke, 
-    Conducive<Test1Active, Test1Typical&>& produce_test1, 
-    Conducive<Test2Active, Test2Typical&>& produce_test2, 
-    Conducive<Test3Active, Test3Typical&>& produce_test3, 
-    Conducive<Test4Active, Test4Typical&, Test4Methodic>& produce_test4
+    Conducive<Test1Active, Test1Typical&>& produce1, 
+    Conducive<Test2Active, Test2Typical&>& produce2, 
+    Conducive<Test3Active, Test3Typical&>& produce3, 
+    Conducive<Test4Active, Test4Typical&, Test4Methodic>& produce4
 ) {
     static auto& RunTest1 = RunTest<Referential, Test1Active, Test1Typical&>;
     static auto& RunTest2 = RunTest<Referential, Test2Active, Test2Typical&>;
     static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
     static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
     for (size_t count = 0; count < TEST_CONDITIONS_LOOP; count++) {
-        RunTest1( invoke, produce_test1, Test1 );
-        RunTest2( invoke, produce_test2, Test2 );
-        RunTest3( invoke, produce_test3, Test3 );
-        RunTest4( invoke, produce_test4, Test4, &Test4Typical::run );
+        RunTest1( invoke, produce1, Test1 );
+        RunTest2( invoke, produce2, Test2 );
+        RunTest3( invoke, produce3, Test3 );
+        RunTest4( invoke, produce4, Test4, &Test4Typical::run );
     }
 }
 

@@ -1,6 +1,5 @@
 // © 2019 Aaron Sami Abassi
 // Licensed under the Academic Free License version 3.0
-#include "test.conditions"
 #include "procedure.hpp"
 
 using namespace procedure;
@@ -20,6 +19,7 @@ static inline auto Produce( Typical& object, MethodLocative method )
     return Procure( object, method, Guide<void> );
 }
 
+#include "test.conditions"
 int main()
 {
     static auto& Produce1 = Produce<Test1Typical>;
