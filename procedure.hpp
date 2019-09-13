@@ -135,7 +135,8 @@ namespace procedure {
      */
     template <class Resultant, class ...Parametric >
     static constexpr Objective<Resultant( Parametric... ), Resultant, Parametric...>
-    Procure( Functional<Resultant, Parametric...>& function ) {
+    Procure( Functional<Resultant, Parametric...>& function )
+    {
         using Specific = Objective<Resultant( Parametric... ), Resultant, Parametric...>;
         return Specific( function );
     }
