@@ -2,10 +2,13 @@
 // Licensed under the Academic Free License version 3.0
 #ifndef PROCEDURE_MODULE
 #define PROCEDURE_MODULE
+#ifndef PROCEDURE_MODULE_NOSTDCPP
+#include <type_traits>
+#endif
 
 /**
  * @brief   
- *     Stored procedure invocation.
+ *     Stored procedure call system.
  * @details 
  *     Allows any C++ stored procedure to be called using one common interface.
  */
@@ -72,10 +75,12 @@ namespace procedure {
      * @details       
      *     This type is used to call an object method.  Define the macro 
      *     PROCEDURE_MODULE_NOTHROW to prevent throwing the null member function
-     *     pointer if exceptions are not supported.
+     *     pointer if exceptions are not supported.  Define the macro
+     *     PROCEDURE_MODULE_NOSTDCPP to prevent static assertions if the 
+     *     type_traits standard library header is not available.
      * @tparam Typical
      *     Type of the object.
-     * @tparam Locative
+     * @tparam MethodLocational
      *     Pointer to member function type.
      * @tparam Resultant
      *     Return type of the call.
@@ -84,13 +89,19 @@ namespace procedure {
      */
     template <
         class Typical,
-        class Locative,
+        class MethodLocational,
         class Resultant,
         class ...Parametric
     >
     class Methodic final : public Procedural<Resultant, Parametric...> {
+#ifndef PROCEDURE_MODULE_NOSTDCPP
+        static_assert(
+            ::std::is_member_function_pointer< MethodLocational >::value,
+            "MethodLocational:  Pointer to member function type required"
+        );
+#endif
     public:
-        Methodic( Typical& object, const Locative method ) : 
+        Methodic( Typical& object, const MethodLocational method ) : 
             object( object ), method( method ) 
         {
 #ifndef PROCEDURE_MODULE_NOTHROW
@@ -104,7 +115,7 @@ namespace procedure {
         }
     private:
         Typical& object; /**< User defined object reference. */
-        const Locative method; /**< Member function pointer. */
+        const MethodLocational method; /**< Member function pointer. */
     };
 
     /**
@@ -112,7 +123,7 @@ namespace procedure {
      *     Return and parameter type deduction constant expression object.
      * @details       
      *     This null pointer constant expression object is used to specify the
-     *     return and parameter types of the call to a Designate template instance.
+     *     return and parameter types of the call to a Procure template instance.
      * @tparam Resultant
      *     Return type of the call.
      * @tparam ...Parametric
@@ -124,7 +135,7 @@ namespace procedure {
 
     /**
      * @brief         
-     *     Designate a function as a procedural call object.
+     *     Specify a function as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
      *     procedural call to a function.
@@ -143,7 +154,7 @@ namespace procedure {
 
     /**
      * @brief         
-     *     Designate a data object as a procedural call object.
+     *     Specify a data object as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
      *     procedural call to a data object.
@@ -164,13 +175,15 @@ namespace procedure {
 
     /**
      * @brief         
-     *     Designate a data object method as a procedural call object.
+     *     Specify a data object method as a procedural call object.
      * @details       
      *     This function template is used to create a representation of a 
-     *     procedural call to a data object member function.
+     *     procedural call to a data object member function.  Define the macro
+     *     PROCEDURE_MODULE_NOSTDCPP to prevent static assertions if the 
+     *     type_traits standard library header is not available.
      * @tparam Typical
      *     Type of the data object.
-     * @tparam Locative
+     * @tparam MethodLocational
      *     Pointer to member function type.
      * @tparam Resultant
      *     Return type of the call.
@@ -179,17 +192,24 @@ namespace procedure {
      */
     template <
         class Typical,
-        class Locative,
+        class MethodLocational,
         class Resultant,
         class ...Parametric
     >
-    static constexpr Methodic<Typical, Locative, Resultant, Parametric...>
+    static constexpr Methodic<Typical, MethodLocational, Resultant, Parametric...>
     Procure( 
         Typical& object, 
-        const Locative method, 
+        const MethodLocational method, 
         Functional<Resultant, Parametric...>* guide 
     ) {
-        using Specific = Methodic<Typical, Locative, Resultant, Parametric...>;
+#ifndef PROCEDURE_MODULE_NOSTDCPP
+        using namespace std;
+        static_assert(
+            is_member_function_pointer< MethodLocational >::value,
+            "MethodLocational:  Pointer to member function type required"
+        );
+#endif
+        using Specific = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
         return Specific( object, method );
     }
 
