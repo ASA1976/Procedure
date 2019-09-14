@@ -6,12 +6,12 @@
 using TestProcedural = procedure::Procedural<void>;
 using TestFunctional = std::function<void()>;
 
-void Invoke( const TestProcedural& invoke ) 
+void CallProcedure( const TestProcedural& invoke ) 
 {
     invoke();
 }
 
-void Invoke( const TestFunctional& invoke ) 
+void CallFunction( const TestFunctional& invoke ) 
 {
     invoke();
 }

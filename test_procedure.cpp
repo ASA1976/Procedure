@@ -5,7 +5,7 @@
 using namespace procedure;
 
 // Link with test_extern.cpp (only)
-void Invoke( const Procedural<void>& );
+void CallProcedure( const Procedural<void>& );
 
 template <class Typical>
 static inline auto Produce( Typical& object ) 
@@ -19,7 +19,7 @@ static inline auto Produce( Typical& object, MethodLocational method )
     return Procure( object, method, Guide<void> );
 }
 
-#define TEST_INVOKE Invoke
+#define TEST_CALL CallProcedure
 #define TEST_PRODUCE1 Produce<Test1Typical>
 #define TEST_PRODUCE2 Produce<Test2Typical>
 #define TEST_PRODUCE3 Produce<Test3Typical>

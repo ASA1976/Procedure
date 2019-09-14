@@ -5,7 +5,7 @@
 using namespace std;
 
 // Link with test_extern.cpp (only)
-void Invoke( const function<void()>& );
+void CallFunction( const function<void()>& );
 
 template <class Typical>
 static inline function<void()> Produce( Typical& object ) 
@@ -19,7 +19,7 @@ static inline function<void()> Produce( Typical& object, MethodLocational method
     return bind( method, object );
 }
 
-#define TEST_INVOKE Invoke
+#define TEST_CALL CallFunction
 #define TEST_PRODUCE1 Produce<Test1Typical>
 #define TEST_PRODUCE2 Produce<Test2Typical>
 #define TEST_PRODUCE3 Produce<Test3Typical>
