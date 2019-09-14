@@ -2,31 +2,36 @@
 // Licensed under the Academic Free License version 3.0
 #ifndef TEST_CONDITIONS
 #define TEST_CONDITIONS
-#define TEST_CONDITIONS_LOOP 10000000
+
+// Produces meaningful test times in my testing environment (see 'run_tests.sh')
+#define TEST_LOOP 10000000
+
+// Required Macros:
+// TEST_INVOKE Calls object using reference to call argument, void return type
+// TEST_PRODUCE1 Returns call object based on Test1Typical argument
+// TEST_PRODUCE2 Returns call object based on Test2Typical argument
+// TEST_PRODUCE3 Returns call object based on Test3Typical argument
+// TEST_PRODUCE4 Returns call object based on Test4Typical and Test4Methodic arguments
 #include <cstdio>
 
-struct Test1Typical {
-    void operator()() {puts("Test1");}
-} Test1;
-
+// Forbidden test identifiers section: (DO NOT USE IN TEST CASE CODE)
+struct {void operator()() {puts("Test1");}} Test1;
 auto Test2 = []() -> void {puts("Test2");};
-
 void Test3() {puts("Test3");}
+struct {void run() {puts( "Test4" );}} Test4;
 
-struct Test4Typical {
-    void run() {puts( "Test4" );}
-} Test4;
-
+// Allowed type names: (USE THESE AS REQUIRED)
+using Test1Typical = decltype(Test1);
 using Test2Typical = decltype(Test2);
 using Test3Typical = decltype(Test3);
+using Test4Typical = decltype(Test4);
 using Test4Methodic = decltype(&Test4Typical::run);
 
+// Internal section: (IGNORE THESE, EXCEPT FOR ANALYSIS PURPOSES)
 template <class Referential>
 using Applicatory = void( Referential );
-
 template <class Active, class ...Acquisitional>
 using Conducive = Active( Acquisitional... );
-
 template <class Referential, class Active, class ...Acquisitional>
 static inline void RunTest( 
     Applicatory<Referential>& invoke, 
@@ -35,7 +40,6 @@ static inline void RunTest(
 ) {
     invoke( produce( acquisition... ) );
 }
-
 template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
 static inline void RunTests( 
     Applicatory<Referential>& invoke, 
@@ -48,13 +52,15 @@ static inline void RunTests(
     static auto& RunTest2 = RunTest<Referential, Test2Active, Test2Typical&>;
     static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
     static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
-    for (size_t count = 0; count < TEST_CONDITIONS_LOOP; count++) {
-        RunTest1( invoke, produce1, Test1 );
-        RunTest2( invoke, produce2, Test2 );
-        RunTest3( invoke, produce3, Test3 );
-        RunTest4( invoke, produce4, Test4, &Test4Typical::run );
-    }
+    RunTest1( invoke, produce1, Test1 );
+    RunTest2( invoke, produce2, Test2 );
+    RunTest3( invoke, produce3, Test3 );
+    RunTest4( invoke, produce4, Test4, &Test4Typical::run );
+}
+int main()
+{
+    for (size_t count = 0; count < TEST_LOOP; count++)
+        RunTests( TEST_INVOKE, TEST_PRODUCE1, TEST_PRODUCE2, TEST_PRODUCE3, TEST_PRODUCE4 );
 }
 
-#undef TEST_CONDITIONS_LOOP
 #endif

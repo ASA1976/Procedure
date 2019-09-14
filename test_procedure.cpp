@@ -19,12 +19,9 @@ static inline auto Produce( Typical& object, MethodLocational method )
     return Procure( object, method, Guide<void> );
 }
 
+#define TEST_INVOKE Invoke
+#define TEST_PRODUCE1 Produce<Test1Typical>
+#define TEST_PRODUCE2 Produce<Test2Typical>
+#define TEST_PRODUCE3 Produce<Test3Typical>
+#define TEST_PRODUCE4 Produce<Test4Typical, Test4Methodic>
 #include "test.conditions"
-int main()
-{
-    static auto& Produce1 = Produce<Test1Typical>;
-    static auto& Produce2 = Produce<Test2Typical>;
-    static auto& Produce3 = Produce<Test3Typical>;
-    static auto& Produce4 = Produce<Test4Typical, Test4Methodic>;
-    RunTests( Invoke, Produce1, Produce2, Produce3, Produce4 );
-}
