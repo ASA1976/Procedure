@@ -20,9 +20,9 @@ auto Lambda = [] {cout << "Lambda" << endl;};
 
 void Function() {cout << "Function" << endl;}
 
-void Demonstrate( const Procedural< void >& invoke ) 
+void Demonstrate( const Procedural< void >& call ) 
 {
-    invoke();
+    call();
 }
 
 int main() 
