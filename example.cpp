@@ -20,16 +20,16 @@ auto Lambda = [] {cout << "Lambda" << endl;};
 
 void Function() {cout << "Function" << endl;}
 
-void Demonstrate( const Procedural<void>& invoke ) 
+void Demonstrate( const Procedural< void >& invoke ) 
 {
     invoke();
 }
 
 int main() 
 {
-    Demonstrate( Procure( Object, Guide<void> ) );
-    Demonstrate( Procure( Object, &Class::member, Guide<void> ) );
-    Demonstrate( Procure( Lambda, Guide<void> ) );
-    Demonstrate( Procure( Function, Guide<void> ) ); // Matched
+    Demonstrate( Procure( Object, Guide< void > ) );
+    Demonstrate( Procure( Object, &Class::member, Guide< void > ) );
+    Demonstrate( Procure( Lambda, Guide< void > ) );
+    Demonstrate( Procure( Function, Guide< void > ) ); // Matched
     Demonstrate( Procure( Function ) ); // Deduced
 }

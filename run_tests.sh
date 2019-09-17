@@ -1,8 +1,8 @@
 #!/bin/sh
 # Requires (in PATH):
 # GNU coreutils (echo, date)
-# GNU Time
-# LLVM clang++
+# GNU Time (time)
+# Clang LLVM (clang++)
 echo -n "When: " > test_results.txt
 date -u >> test_results.txt
 echo -n "Compiler: " >> test_results.txt

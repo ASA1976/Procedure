@@ -3,15 +3,15 @@
 #include "procedure.hpp"
 #include <functional>
 
-using TestProcedural = procedure::Procedural<void>;
-using TestFunctional = std::function<void()>;
+using TestProcedural = procedure::Procedural< void >;
+using TestFunctional = std::function< void() >;
 
-void CallProcedure( const TestProcedural& invoke ) 
+void CallProcedure( const TestProcedural& call ) 
 {
-    invoke();
+    call();
 }
 
-void CallFunction( const TestFunctional& invoke ) 
+void CallFunction( const TestFunctional& call ) 
 {
-    invoke();
+    call();
 }
