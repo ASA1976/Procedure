@@ -11,10 +11,11 @@
  *     Universal C++ stored procedure call system.
  * @details 
  *     Allows any C++ stored procedure to be called using one common interface.
- *     This system is solely designed to be a rapid system for call site 
- *     acquisition and invocation.  Type erasure and call object duplication can
- *     both be addressed using **instances of a pointer** to a Procedural type 
- *     template instance.
+ *     If run-time type information (RTTI) is available, comparing procedural
+ *     instances will compare the pointers to the callable objects.  If RTTI is
+ *     not available then it is required that only one procedural object exist
+ *     per unique C++ stored procedure, in order to facilitate meaningful 
+ *     results from the equality operator.
  */
 namespace procedure {
 
@@ -48,6 +49,12 @@ namespace procedure {
     template <class Resultant, class ...Parametric>
     struct Procedural {
 
+        /**
+         * @brief 
+         *     Same Procedural type template instance alias.
+         */
+        using SameProcedural = Procedural< Resultant, Parametric... >;
+
         /** 
          * @brief         
          *     Pure virtual call operator used to call the stored procedure.
@@ -56,6 +63,26 @@ namespace procedure {
          *     from this class.
          */
         virtual Resultant operator()( Parametric... ) const = 0;
+
+        /** 
+         * @brief         
+         *     Pure virtual equality operator.
+         * @details       
+         *     This operator must be implemented by classes which are derived 
+         *     from this class.
+         */
+        virtual bool operator==( const SameProcedural& relative ) const = 0;
+
+        /** 
+         * @brief         
+         *     Inequality operator.
+         * @details       
+         *     This operator calls the equality operator and inverts it's logic.
+         */
+        constexpr bool operator!=( const SameProcedural& relative )
+        {
+            return !(*this == relative);
+        }
 
     };
 
@@ -78,6 +105,12 @@ namespace procedure {
 
     public:
 
+        /**
+         * @brief 
+         *     Base Procedural type template instance alias.
+         */
+        using BaseProcedural = Procedural< Resultant, Parametric... >;
+
         /** 
          * @brief         
          *     Construct a procedural object reference.
@@ -86,7 +119,7 @@ namespace procedure {
          * @param[in] object
          *     The procedural call object which will be called by reference.
          */
-        Objective( Typical& object ) : object( object ) {}
+        constexpr Objective( Typical& object ) : object( object ) {}
 
         /** 
          * @brief         
@@ -102,6 +135,33 @@ namespace procedure {
         Resultant operator()( Parametric... arguments ) const 
         {
             return object( arguments... );
+        }
+
+        /** 
+         * @brief         
+         *     Procedural equality operator.
+         * @details       
+         *     Implements the procedural equality operator.  If Run-Time Type 
+         *     Information (RTTI) is available, checks if relative is of the
+         *     same objective type and if it is, compares the addresses of the
+         *     callable objects and returns their equality.  If RTTI is not
+         *     available, compares the addresses of the two procedural objects
+         *     and returns their equality.
+         * @param[in] relative
+         *     Relative procedural instance to compare equality with.
+         * @return
+         *     True only under conditions described in details section.
+         */
+        bool operator==( const BaseProcedural& relative ) const 
+        {
+#ifndef PROCEDURE_MODULE_NORTTI
+            using SameObjective = Objective< Typical, Resultant, Parametric... >;
+            const SameObjective* same = dynamic_cast<const SameObjective*>(&relative);
+            if (!same) return false;
+            return &object == &same->object;
+#else
+            return &relative == this;
+#endif
         }
 
     private:
@@ -135,6 +195,7 @@ namespace procedure {
         class ...Parametric
     >
     class Methodic final : public Procedural< Resultant, Parametric... > {
+
 #ifndef PROCEDURE_MODULE_NOSTDCPP
         static_assert(
             ::std::is_member_function_pointer< MethodLocational >::value,
@@ -143,6 +204,12 @@ namespace procedure {
 #endif
 
     public:
+
+        /**
+         * @brief 
+         *     Base Procedural type template instance alias.
+         */
+        using BaseProcedural = Procedural< Resultant, Parametric... >;
 
         /** 
          * @brief         
@@ -155,7 +222,7 @@ namespace procedure {
          * @param[in] method
          *     The member function pointer location.
          */
-        Methodic( Typical& object, const MethodLocational method ) : 
+        constexpr Methodic( Typical& object, const MethodLocational method ) : 
             object( object ), method( method ) 
         {
 #ifndef PROCEDURE_MODULE_NOTHROW
@@ -178,6 +245,33 @@ namespace procedure {
         Resultant operator()( Parametric... arguments ) const 
         {
             return (object.*method)( arguments... );
+        }
+
+        /** 
+         * @brief         
+         *     Procedural equality operator.
+         * @details       
+         *     Implements the procedural equality operator.  If Run-Time Type 
+         *     Information (RTTI) is available, checks if relative is of the
+         *     same objective type and if it is, compares the addresses of the
+         *     objects, methods and returns their equality.  If RTTI is not
+         *     available, compares the addresses of the two procedural objects
+         *     and returns their equality.
+         * @param[in] relative
+         *     Relative procedural instance to compare equality with.
+         * @return
+         *     True only under conditions described in details section.
+         */
+        bool operator==( const BaseProcedural& relative ) const 
+        {
+#ifndef PROCEDURE_MODULE_NORTTI
+            using SameMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
+            const SameMethodic* same = dynamic_cast<const SameMethodic*>(&relative);
+            if (!same) return false;
+            return &object == &same->object && method == same->method;
+#else
+            return &relative == this;
+#endif
         }
 
     private:

@@ -1,85 +1,85 @@
-When: Tue Sep 17 06:24:51 UTC 2019
+When: Thu Sep 19 08:04:04 UTC 2019
 Compiler: clang version 8.0.1 (tags/RELEASE_801/final)
 Target: i686-pc-linux-gnu
 Thread model: posix
 InstalledDir: /usr/bin
 test_procedure:
-real 1.76
-user 1.71
+real 1.84
+user 1.82
+sys 0.02
+test_stdfunction:
+real 2.26
+user 2.23
+sys 0.02
+test_procedure:
+real 1.83
+user 1.79
+sys 0.03
+test_stdfunction:
+real 2.26
+user 2.21
+sys 0.04
+test_procedure:
+real 1.84
+user 1.80
+sys 0.02
+test_stdfunction:
+real 2.22
+user 2.21
+sys 0.00
+test_procedure:
+real 1.86
+user 1.83
+sys 0.02
+test_stdfunction:
+real 2.28
+user 2.22
+sys 0.05
+test_procedure:
+real 1.83
+user 1.79
 sys 0.04
 test_stdfunction:
 real 2.30
-user 2.24
-sys 0.05
-test_procedure:
-real 1.78
-user 1.75
-sys 0.03
-test_stdfunction:
-real 2.34
 user 2.27
-sys 0.06
-test_procedure:
-real 1.78
-user 1.75
-sys 0.03
-test_stdfunction:
-real 2.33
-user 2.29
-sys 0.03
-test_procedure:
-real 1.75
-user 1.73
-sys 0.02
-test_stdfunction:
-real 2.27
-user 2.24
 sys 0.02
 test_procedure:
-real 1.77
-user 1.73
-sys 0.03
-test_stdfunction:
-real 2.32
-user 2.27
-sys 0.05
-test_procedure:
-real 1.75
-user 1.72
-sys 0.02
-test_stdfunction:
-real 2.28
-user 2.24
-sys 0.03
-test_procedure:
-real 1.78
-user 1.72
-sys 0.05
-test_stdfunction:
-real 2.28
-user 2.23
-sys 0.05
-test_procedure:
-real 1.77
-user 1.73
-sys 0.03
-test_stdfunction:
-real 2.31
-user 2.24
-sys 0.06
-test_procedure:
-real 1.80
-user 1.77
-sys 0.03
-test_stdfunction:
-real 2.31
-user 2.27
-sys 0.03
-test_procedure:
-real 1.79
-user 1.77
+real 1.83
+user 1.82
 sys 0.01
 test_stdfunction:
 real 2.30
 user 2.25
+sys 0.05
+test_procedure:
+real 1.85
+user 1.83
+sys 0.01
+test_stdfunction:
+real 2.23
+user 2.20
+sys 0.02
+test_procedure:
+real 1.81
+user 1.79
+sys 0.01
+test_stdfunction:
+real 2.29
+user 2.25
+sys 0.03
+test_procedure:
+real 1.84
+user 1.83
+sys 0.01
+test_stdfunction:
+real 2.32
+user 2.31
+sys 0.01
+test_procedure:
+real 1.82
+user 1.77
 sys 0.04
+test_stdfunction:
+real 2.23
+user 2.20
+sys 0.02
