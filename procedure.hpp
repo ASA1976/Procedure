@@ -108,8 +108,7 @@ namespace procedure {
          */
         constexpr bool operator!=( const BaseProcedural& relative ) const
         {
-            using SameProcedural = ComparablyProcedural< Resultant, Parametric... >;
-            return !SameProcedural::operator==( relative );
+            return !operator==( relative );
         }
 
     };
@@ -164,7 +163,7 @@ namespace procedure {
          */
         constexpr bool operator!=( const SameObjective& relative ) const
         {
-            return !SameObjective::operator==( relative );
+            return !operator==( relative );
         }
 
     protected:
@@ -398,7 +397,7 @@ namespace procedure {
          */
         constexpr bool operator!=( const SameMethodic& relative ) const
         {
-            return !SameMethodic::operator==( relative );
+            return !operator==( relative );
         }
 
 
