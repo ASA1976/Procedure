@@ -8,7 +8,7 @@ Licensed under the Academic Free License version 3.0
 ## Introduction
 
 This ISO C++ 2014 standard compliant 
-[template header](https://github.com/ASA1976/Function/blob/master/procedure.hpp#L1)
+[template header](https://github.com/ASA1976/Procedure/blob/master/procedure.hpp#L1)
 provides class templates and function templates which allow a system to call any
 kind of C++ stored procedure with matching call return and parameter 
 types.  This call system is intended for application development audiences 
@@ -51,7 +51,7 @@ corresponding Procure function templates.
 ## Example
 
 Please see the 
-[example](https://github.com/ASA1976/Function/blob/master/example.cpp#L1)
+[example](https://github.com/ASA1976/Procedure/blob/master/example.cpp#L1)
 which demonstrates each use case for a simple void return type and constant
 character pointer parameter type (1).
 
