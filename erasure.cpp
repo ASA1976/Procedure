@@ -18,16 +18,17 @@ const struct Class {
 
 void CallProcedure( const Procedural< void >& call ) {call();}
 
-const auto LambdaProcedure = Procure( Lambda, Guide< void > );
-const auto FunctionProcedure = Procure( Function, Guide< void > );
-const auto FunctorProcedure = Procure( Object, Guide< void > );
-const auto MethodProcedure = Procure( Object, &Class::member, Guide< void > );
+const auto LambdaProcedure = ProcureComparably( Lambda, Guide< void > );
+const auto FunctionProcedure = ProcureComparably( Function, Guide< void > );
+const auto FunctorProcedure = ProcureComparably( Object, Guide< void > );
+const auto MethodProcedure = ProcureComparably( Object, &Class::member, Guide< void > );
 
 template <typename Resultant, typename ...Parametric>
 class Conventional {
 public:
+    using BaseProcedural = Procedural< Resultant, Parametric... >;
+    using SameProcedural = ComparablyProcedural< Resultant, Parametric... >;
     using SameConventional = Conventional< Resultant, Parametric... >;
-    using SameProcedural = Procedural< Resultant, Parametric... >;
     constexpr Conventional( const SameProcedural& procedure ) : 
         procedure( &procedure ) {}
     constexpr Conventional( const SameConventional& copy ) : 
@@ -41,9 +42,13 @@ public:
         procedure = copy.procedure;
         return *this;
     }
-    constexpr bool operator==( const SameProcedural& procedure ) 
+    constexpr bool operator==( const BaseProcedural& relative ) 
     {
-        return *this->procedure == procedure;
+        return *procedure == relative;
+    }
+    constexpr bool operator==( const SameConventional& relative ) 
+    {
+        return *procedure == *relative->procedure;
     }
 private:
     const SameProcedural* procedure;
