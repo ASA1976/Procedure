@@ -106,7 +106,7 @@ namespace procedure {
          * @return
          *     The inverse of the equal to operator return value.
          */
-        constexpr bool operator!=( const BaseProcedural& relative )
+        constexpr bool operator!=( const BaseProcedural& relative ) const
         {
             using SameProcedural = ComparablyProcedural< Resultant, Parametric... >;
             return !SameProcedural::operator==( relative );
