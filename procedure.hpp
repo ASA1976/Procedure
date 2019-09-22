@@ -66,7 +66,7 @@ namespace procedure {
 
     /**
      * @brief         
-     *     Abstract procedural base class.
+     *     Abstract comparable procedural base class.
      * @details       
      *     This type is used to call or compare stored procedures matching the 
      *     specified return and parameter types
@@ -230,7 +230,7 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const 
+        Resultant operator()( Parametric... arguments ) const final
         {
             return this->object( arguments... );
         }
@@ -291,7 +291,7 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const 
+        Resultant operator()( Parametric... arguments ) const final
         {
             return this->object( arguments... );
         }
@@ -315,7 +315,7 @@ namespace procedure {
          * @return
          *     True only under conditions described in details section.
          */
-        bool operator==( const BaseProcedural& relative ) const 
+        bool operator==( const BaseProcedural& relative ) const final
         {
 #ifndef PROCEDURE_MODULE_NORTTI
             const BaseObjective* same = dynamic_cast<const BaseObjective*>(&relative);
@@ -488,7 +488,7 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const 
+        Resultant operator()( Parametric... arguments ) const final
         {
             return (this->object.*this->method)( arguments... );
         }
@@ -560,7 +560,7 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const 
+        Resultant operator()( Parametric... arguments ) const final
         {
             return (this->object.*this->method)( arguments... );
         }
@@ -584,7 +584,7 @@ namespace procedure {
          * @return
          *     True only under conditions described in details section.
          */
-        bool operator==( const BaseProcedural& relative ) const 
+        bool operator==( const BaseProcedural& relative ) const final
         {
 #ifndef PROCEDURE_MODULE_NORTTI
             const BaseMethodic* same = dynamic_cast<const BaseMethodic*>(&relative);
