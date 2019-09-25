@@ -8,6 +8,7 @@ Licensed under the Academic Free License version 3.0
 
 * A universal C++ procedure call system for application programming
 * Procedures include functions, member functions, lambdas and operator overloads
+* The library is entirely contained in the source code header **procedure.hpp**
 
 ## What does it do?
 
