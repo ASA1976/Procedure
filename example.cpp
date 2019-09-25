@@ -10,15 +10,10 @@ using namespace std;
 using namespace procedure;
 
 const struct Class {
-
     void operator()() const {cout << "Functor" << endl;}
-
     void member() const {cout << "Member Function" << endl;}
-
 } Object;
-
 auto Lambda = [] {cout << "Lambda" << endl;};
-
 void Function() {cout << "Function" << endl;}
 
 void Demonstrate( const Procedural< void >& call ) 

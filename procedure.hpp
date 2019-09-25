@@ -8,16 +8,16 @@
 
 /**
  * @brief   
- *     Universal C++ stored procedure call system.
+ *     Universal C++ procedure call system.
  * @details 
- *     Allows any C++ stored procedure to be called using one common interface.
+ *     Allows any C++ procedure to be called using one common interface.
  *     This includes functions, lambdas, call operators on user defined types
  *     as well as member functions with object context.  **When using the
  *     comparable classes without run-time type information (RTTI) support,
- *     comparison will only work if each unique stored procedure site is only 
+ *     comparison will only work if each unique procedure site is only 
  *     represented by one procedural object instance**.  With RTTI support there
- *     can be many procedural instances for each stored procedure, where the
- *     object address spaces of the stored procedures are compared directly.
+ *     can be many procedural instances for each procedure, where the
+ *     object address spaces of the procedures are compared directly.
  */
 namespace procedure {
 
@@ -40,7 +40,7 @@ namespace procedure {
      * @brief         
      *     Abstract procedural base class.
      * @details       
-     *     This type is used to call any stored procedure matching the specified
+     *     This type is used to call any procedure matching the specified
      *     return and parameter types, using the sole virtual call operator 
      *     member.  Only references and pointers to this type are useful.
      * @tparam Resultant
@@ -68,7 +68,7 @@ namespace procedure {
      * @brief         
      *     Abstract comparable procedural base class.
      * @details       
-     *     This type is used to call or compare stored procedures matching the 
+     *     This type is used to call or compare procedures matching the 
      *     specified return and parameter types
      * @tparam Resultant
      *     Return type of the call.
@@ -76,13 +76,15 @@ namespace procedure {
      *     Parameter pack which represents the parameter types of the call.
      */
     template <class Resultant, class ...Parametric>
-    class ComparablyProcedural : public Procedural< Resultant, Parametric... > {
+    class ComparablyProcedural : 
+        public Procedural< Resultant, Parametric... > 
+    {
 
     public:
 
         /**
          * @brief
-         *     Base procedural type template instance alias.
+         *     Base class type template instance alias.
          */
         using BaseProcedural = Procedural< Resultant, Parametric... >;
 
@@ -132,7 +134,7 @@ namespace procedure {
 
         /**
          * @brief
-         *     Same objective type template instance alias.
+         *     Same class type template instance alias.
          */
         using SameObjective = Objective< Typical, Resultant, Parametric... >;
 
@@ -178,6 +180,16 @@ namespace procedure {
          */
         constexpr Objective( Typical& object ) : object( object ) {}
 
+        /** 
+         * @brief         
+         *     Construct a copy of a callable object reference.
+         * @details       
+         *     The resulting instance will reference the same object.
+         * @param[in] copy
+         *     The instance of this class to copy.
+         */
+        constexpr Objective( const SameObjective& copy ) : object( copy.object ) {}
+
         Typical& object;  /**< Callable object reference. */
 
     };
@@ -203,8 +215,8 @@ namespace procedure {
     public:
 
         /**
-         * @brief 
-         *     Base objective type template instance alias.
+         * @brief
+         *     Base class template instance alias.
          */
         using BaseObjective = Objective< Typical, Resultant, Parametric... >;
 
@@ -218,6 +230,17 @@ namespace procedure {
          */
         constexpr SimplyObjective( Typical& object ) :
             BaseObjective( object ) {}
+
+        /** 
+         * @brief         
+         *     Construct a copy of a callable object reference.
+         * @details       
+         *     The resulting instance will reference the same object.
+         * @param[in] copy
+         *     The instance of this class to copy.
+         */
+        constexpr SimplyObjective( const BaseObjective& copy ) :
+            BaseObjective( copy ) {}
 
         /** 
          * @brief         
@@ -258,14 +281,14 @@ namespace procedure {
     public:
 
         /**
-         * @brief 
-         *     Base procedural type template instance alias.
+         * @brief
+         *     Base class template instance alias.
          */
         using BaseProcedural = Procedural< Resultant, Parametric... >;
 
         /**
-         * @brief 
-         *     Base objective type template instance alias.
+         * @brief
+         *     Base class template instance alias.
          */
         using BaseObjective = Objective< Typical, Resultant, Parametric... >;
 
@@ -279,6 +302,17 @@ namespace procedure {
          */
         constexpr ComparablyObjective( Typical& object ) :
             BaseObjective( object ) {}
+
+        /** 
+         * @brief         
+         *     Construct a copy of a callable object reference.
+         * @details       
+         *     The resulting instance will reference the same object.
+         * @param[in] copy
+         *     The instance of this class to copy.
+         */
+        constexpr ComparablyObjective( const BaseObjective& copy ) :
+            BaseObjective( copy ) {}
 
         /** 
          * @brief         
@@ -365,8 +399,8 @@ namespace procedure {
     public:
 
         /**
-         * @brief 
-         *     Same methodic type template instance alias.
+         * @brief
+         *     Same class template instance alias.
          */
         using SameMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
 
@@ -424,6 +458,18 @@ namespace procedure {
 #endif
         }
 
+        /** 
+         * @brief         
+         *     Construct a copy of a callable object member function reference.
+         * @details       
+         *     The resulting instance will reference the same object and member
+         *     function.
+         * @param[in] copy
+         *     The instance of this class to copy.
+         */
+        constexpr Methodic( const SameMethodic& copy ) : 
+            object( copy.object ), method( copy.method ) {}
+
         Typical& object; /**< Object reference. */
 
         const MethodLocational method; /**< Callable member function pointer. */
@@ -458,8 +504,8 @@ namespace procedure {
     public:
 
         /**
-         * @brief 
-         *     Base methodic type template instance alias.
+         * @brief
+         *     Base class template instance alias.
          */
         using BaseMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
 
@@ -476,6 +522,17 @@ namespace procedure {
          */
         constexpr SimplyMethodic( Typical& object, const MethodLocational method ) :
             BaseMethodic( object, method ) {}
+
+        /** 
+         * @brief         
+         *     Construct a copy of a callable object reference.
+         * @details       
+         *     The resulting instance will reference the same object.
+         * @param[in] copy
+         *     The instance of this class to copy.
+         */
+        constexpr SimplyMethodic( const BaseMethodic& copy ) : 
+            BaseMethodic( copy ) {}
 
         /** 
          * @brief         
@@ -524,14 +581,14 @@ namespace procedure {
     public:
 
         /**
-         * @brief 
-         *     Base procedural type template instance alias.
+         * @brief
+         *     Base class template instance alias.
          */
         using BaseProcedural = Procedural< Resultant, Parametric... >;
 
         /**
-         * @brief 
-         *     Base methodic type template instance alias.
+         * @brief
+         *     Base class template instance alias.
          */
         using BaseMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
 
@@ -548,6 +605,17 @@ namespace procedure {
          */
         constexpr ComparablyMethodic( Typical& object, const MethodLocational method ) :
             BaseMethodic( object, method ) {}
+
+        /** 
+         * @brief         
+         *     Construct a copy of a callable object reference.
+         * @details       
+         *     The resulting instance will reference the same object.
+         * @param[in] copy
+         *     The instance of this class to copy.
+         */
+        constexpr ComparablyMethodic( const BaseMethodic& copy ) : 
+            BaseMethodic( copy ) {}
 
         /** 
          * @brief         

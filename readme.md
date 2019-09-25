@@ -1,66 +1,71 @@
+
 # Procedure
-#### Universal C++ stored procedure call interface for application programming
 
 © 2019 Aaron Sami Abassi
-
 Licensed under the Academic Free License version 3.0
 
-## Introduction
+## What is the 'procedure' template library?
 
-This ISO C++ 2014 standard compliant 
-[template header](https://github.com/ASA1976/Procedure/blob/master/procedure.hpp#L1)
-provides class templates and function templates which allow a system to call any
-kind of C++ stored procedure with matching call return and parameter 
-types.  This call system is intended for application development audiences 
-primarily, including high performance computing applications.  It is **not 
-intended for embedded** and certain real-time systems programming audiences, 
-please see 
-[invocation](https://github.com/ASA1976/RAP-BTL/blob/master/invocation.hpp#L1) 
-in the
-[Relational Association Programming Basic Template Library for C++](https://github.com/ASA1976/RAP-BTL) 
-if stringent memory space or trivial copying of call site wrapper objects are 
-required, with similar performance levels.
+* A universal C++ procedure call system for application programming
+* Procedures include functions, member functions, lambdas and operator overloads
 
-## Usage
+## What does it do?
 
-The header is named 'procedure.hpp'and can either be copied into a source 
-project tree or installed as a standard system header file.  The file strictly 
-contains one name space with templates which are unused unless their scope is 
-referenced after their inclusion.
+Given matching return type, parameter types and calling convention:
 
-In order to call any stored procedure, one uses a template instance of the
-Procedural type template in the 'procedure' name space to specify the return 
-type and parameter types for the call.  Constant references to such base class 
-objects can be used to invoke the virtual call operator which is implemented by
-the derived class.
+* Call procedures using a pure abstract Procedural class
+* Compare or call procedures using a pure abstract ComparablyProcedural class
 
-In order to specify a function, lambda, object call operator or object member 
-function call, one invokes one the overloaded Procure function templates in 
-the 'procedure' name space.  To specify a function, one invokes the Procure
-overload with a function reference parameter (1).  To specify a call operator 
-overload or lambda, one invokes the Procure overload with an object reference 
-and null function pointer parameters (2).  To specify an object member function 
-call, one uses the Procure overload with an object reference, constant pointer 
-to member and null function pointer parameters (3).
+## Who should use it?
 
-In order to deduce the return and parameter types for call operator overloads,
-lambdas and object member function calls, the Guide variable template provides a
-null pointer to function constant expression, which is provided to the 
-corresponding Procure function templates.
+* Suitable for high performance computing, gaming and application development
+* **Can be used on any platform** with the use of header macros in certain cases
+* Arduino/micro-controller users, see; **Is this template library portable?**
 
-## Example
+## How is it used?
 
-Please see the 
-[example](https://github.com/ASA1976/Procedure/blob/master/example.cpp#L1)
-which demonstrates each use case for a simple void return type and constant
-character pointer parameter type (1).
+* Reference or pointer to constant Procedural can be used to call an object
+* As above to constant ComparablyProcedural can be used to compare call objects
+* The Guide template is required for return and parameter type deductions
+* Use Procure and ProcureComparably templates to initialize Procedural objects
+* Objective classes represent function, lambda or call operator overload calls
+* Methodic classes represent object member function calls
+* SimplyObjective and SimplyMethodic derive from Procedural only
+* ComparablyObjective and ComparablyMethodic derive from ComparablyProcedural
+* [Simple example](https://github.com/ASA1976/Procedure/blob/master/example.cpp#L1) which demonstrates basic use for each type of procedure
+* [Complex example](https://github.com/ASA1976/Procedure/blob/master/erasure.cpp#L1) which demonstrates comparison and a copy convention class
 
-## Standardization Statement
+## Why Procedural and ComparableProcedural class templates?
 
-NB: International Organization for Standardization, Working Group 21 (WG21)
+* If comparison is not required, using ComparablyProcedural is not recommended
+* Performance may be *slightly* hindered using the larger comparable classes
+* See discrepency in [test_procedure](https://github.com/ASA1976/Procedure/blob/master/procedure_results.txt#L1) times with [test_comparable](https://github.com/ASA1976/Procedure/blob/master/comparable_results.txt#L1) times
 
-Under the terms of the
-[Academic Free License version 3.0](https://opensource.org/licenses/AFL-3.0)
-, please feel free to incorporate these templates in the standard library 
-in any modified form pursuant to the AFL license terms.
+## Is this template library portable?
+
+* This library is designed to work on any C++14 compliant compiler platform
+* PROCEDURE_MODULE_NOSTDCPP prevents the use of type_traits based verifications
+* PROCEDURE_MODULE_NOTHROW prevents **this** library from throwing exceptions
+* PROCEDURE_MODULE_NORTTI read below; **What about operation without RTTI?** 
+
+## What about operation without RTTI?
+
+* The following only applies to the equal to operator from ComparablyProcedural
+* Comparison with RTTI will compare the callable object addresses for equality
+* **Comparison without RTTI relies instead on Procedural object uniqueness**
+* If RTTI is not available, the following semantics must always be respected
+* Limit of one Procedural object per unique callable object address
+* For member functions, unique object address and member pointer combinations
+* This library **will not enforce** Procedural uniqueness with or without RTTI
+
+## What if the ability to copy the procedural interface object is required?
+
+* Copy constructors are available on each specific Objective and Methodic type
+* However type erasure only extends to the Procedural base classes
+* See the use of the **Convetional** type template in the [complex example](https://github.com/ASA1976/Procedure/blob/master/erasure.cpp#L1)
+* If the above is not suitable, please see [invocation](https://github.com/ASA1976/RAP-BTL/blob/master/invocation.cpp#L1) in the [RAP-BTL](https://github.com/ASA1976/RAP-BTL)
+
+### How to contact the author?
+
+I can be contacted [here](mailto:rap.paradigm@gmail.com?subject=procedure.hpp).
 

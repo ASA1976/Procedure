@@ -16,8 +16,6 @@ const struct Class {
     void member() const {cout << "Member Function" << endl;}
 } Object;
 
-void CallProcedure( const Procedural< void >& call ) {call();}
-
 const auto LambdaProcedure = ProcureComparably( Lambda, Guide< void > );
 const auto FunctionProcedure = ProcureComparably( Function, Guide< void > );
 const auto FunctorProcedure = ProcureComparably( Object, Guide< void > );
@@ -37,22 +35,23 @@ public:
     {
         return *procedure;
     }
-    constexpr SameConventional& operator=( const SameConventional& copy )
-    {
-        procedure = copy.procedure;
-        return *this;
-    }
-    constexpr bool operator==( const BaseProcedural& relative ) 
+    constexpr bool operator==( const BaseProcedural& relative ) const
     {
         return *procedure == relative;
     }
-    constexpr bool operator==( const SameConventional& relative ) 
+    constexpr SameConventional& operator=( const SameProcedural& procedure )
     {
-        return *procedure == *relative->procedure;
+        this->procedure = &procedure;
+        return *this;
     }
 private:
     const SameProcedural* procedure;
 };
+
+void CallProcedure( const Procedural< void >& call ) 
+{
+    call();
+}
 
 template <size_t Length>
 constexpr void ShuffleCalls( Conventional< void >(&calls)[Length] ) 
@@ -88,16 +87,10 @@ int main()
     PerformCalls( calls );
     ShuffleCalls( calls );
     cout << endl;
-    cout << "Run-time type information (RTTI) is: ";
+    cout << "Run-time type information (RTTI): ";
     if (calls[0] == Procure( Lambda, Guide< void > ))
-        cout << "working perfectly";
+        cout << "is enabled";
     else
-        cout << "not available";
+        cout << "is disabled";
     cout << endl;
-    return
-        calls[0] == LambdaProcedure &&
-        calls[1] == FunctionProcedure &&
-        calls[2] == FunctorProcedure &&
-        calls[3] == MethodProcedure
-        ? 0 : -1;
 }
