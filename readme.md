@@ -21,7 +21,7 @@ Given matching return type, parameter types and calling convention:
 
 * Suitable for high performance computing, gaming and application development
 * **Can be used on any platform** with the use of header macros in certain cases
-* Arduino/micro-controller users, see; **Is this template library portable?**
+* Arduino/micro-controller users be sure to read; **Is this template library portable?**
 
 ## How is it used?
 
@@ -63,7 +63,7 @@ Given matching return type, parameter types and calling convention:
 
 * Copy constructors are available on each specific Objective and Methodic type
 * However type erasure only extends to the Procedural base classes
-* See the use of the **Convetional** type template in the [complex example](https://github.com/ASA1976/Procedure/blob/master/erasure.cpp#L1)
+* See the use of the **Conventional** type template in the [complex example](https://github.com/ASA1976/Procedure/blob/master/erasure.cpp#L1)
 * If the above is not suitable, please see [invocation](https://github.com/ASA1976/RAP-BTL/blob/master/invocation.cpp#L1) in the [RAP-BTL](https://github.com/ASA1976/RAP-BTL)
 
 ### How to contact the author?
