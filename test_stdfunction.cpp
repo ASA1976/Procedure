@@ -3,21 +3,21 @@
 #include <functional>
 
 using namespace std;
-using TestFunctional = function< void() >;
+using TestFunctional = function<void()>;
 
 // Link with test_extern.cpp (only)
-void CallFunction( const TestFunctional& );
+void CallFunction(const TestFunctional&);
 
 template <class Typical>
-static inline TestFunctional Produce( Typical& object ) 
+static inline TestFunctional Produce(Typical& object)
 {
     return object;
 }
 
 template <class Typical, class MethodLocational>
-static inline TestFunctional Produce( Typical& object, MethodLocational method ) 
+static inline TestFunctional Produce(Typical& object, MethodLocational method)
 {
-    return bind( method, object );
+    return bind(method, object);
 }
 
 #define TEST_CALL CallFunction

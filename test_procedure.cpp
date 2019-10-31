@@ -5,18 +5,18 @@
 using namespace procedure;
 
 // Link with test_extern.cpp (only)
-void CallProcedure( const Procedural< void >& );
+void CallProcedure(const Procedural<void>&);
 
 template <class Typical>
-static inline auto Produce( Typical& object ) 
+static inline auto Produce(Typical& object)
 {
-    return Procure( object, Guide< void > );
+    return Procure(object, Guide<void>);
 }
 
 template <class Typical, class MethodLocational>
-static inline auto Produce( Typical& object, MethodLocational method ) 
+static inline auto Produce(Typical& object, MethodLocational method)
 {
-    return Procure( object, method, Guide< void > );
+    return Procure(object, method, Guide<void>);
 }
 
 #define TEST_CALL CallProcedure

@@ -21,7 +21,7 @@
  */
 namespace procedure {
 
-    /**
+/**
      * @brief 
      *     Proper function type.
      * @details 
@@ -33,10 +33,10 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Resultant, class ...Parametric>
-    using Functional = Resultant( Parametric... );
+template <class Resultant, class... Parametric>
+using Functional = Resultant(Parametric...);
 
-    /**
+/**
      * @brief         
      *     Abstract procedural base class.
      * @details       
@@ -48,23 +48,21 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Resultant, class ...Parametric>
-    class Procedural {
+template <class Resultant, class... Parametric>
+class Procedural {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Pure virtual call operator.
          * @details
          *     This operator must be implemented by classes which are derived
          *     from this class.
          */
-        virtual Resultant operator()( Parametric... ) const = 0;
+    virtual Resultant operator()(Parametric...) const = 0;
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Abstract comparable procedural base class.
      * @details       
@@ -75,29 +73,26 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Resultant, class ...Parametric>
-    class ComparablyProcedural : 
-        public Procedural< Resultant, Parametric... > 
-    {
+template <class Resultant, class... Parametric>
+class ComparablyProcedural : public Procedural<Resultant, Parametric...> {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Base class type template instance alias.
          */
-        using BaseProcedural = Procedural< Resultant, Parametric... >;
+    using BaseProcedural = Procedural<Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Pure virtual equal to operator.
          * @details       
          *     This operator must be implemented by classes which are derived 
          *     from this class.
          */
-        virtual bool operator==( const BaseProcedural& ) const = 0;
+    virtual bool operator==(const BaseProcedural&) const = 0;
 
-        /** 
+    /** 
          * @brief         
          *     Not equal to operator implementation.
          * @details       
@@ -108,14 +103,13 @@ namespace procedure {
          * @return
          *     The inverse of the equal to operator return value.
          */
-        constexpr bool operator!=( const BaseProcedural& relative ) const
-        {
-            return !operator==( relative );
-        }
+    constexpr bool operator!=(const BaseProcedural& relative) const
+    {
+        return !operator==(relative);
+    }
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Base class for any callable object, which excludes member functions.
      * @details       
@@ -127,18 +121,17 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Typical, class Resultant, class ...Parametric>
-    class Objective {
+template <class Typical, class Resultant, class... Parametric>
+class Objective {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Same class type template instance alias.
          */
-        using SameObjective = Objective< Typical, Resultant, Parametric... >;
+    using SameObjective = Objective<Typical, Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Equal to operator implementation specific to this class.
          * @details       
@@ -148,12 +141,12 @@ namespace procedure {
          * @return
          *     True only if both reference the same object.
          */
-        constexpr bool operator==( const SameObjective& relative ) const
-        {
-            return &object == &relative.object;
-        }
+    constexpr bool operator==(const SameObjective& relative) const
+    {
+        return &object == &relative.object;
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Not equal to operator implementation specific to this class.
          * @details       
@@ -163,14 +156,13 @@ namespace procedure {
          * @return
          *     False only if both reference the same object.
          */
-        constexpr bool operator!=( const SameObjective& relative ) const
-        {
-            return !operator==( relative );
-        }
+    constexpr bool operator!=(const SameObjective& relative) const
+    {
+        return !operator==(relative);
+    }
 
-    protected:
-
-        /** 
+protected:
+    /** 
          * @brief         
          *     Construct a callable object reference.
          * @details       
@@ -178,9 +170,12 @@ namespace procedure {
          * @param[in] object
          *     The callable object which will be called by reference.
          */
-        constexpr Objective( Typical& object ) : object( object ) {}
+    constexpr Objective(Typical& object)
+        : object(object)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Construct a copy of a callable object reference.
          * @details       
@@ -188,13 +183,15 @@ namespace procedure {
          * @param[in] copy
          *     The instance of this class to copy.
          */
-        constexpr Objective( const SameObjective& copy ) : object( copy.object ) {}
+    constexpr Objective(const SameObjective& copy)
+        : object(copy.object)
+    {
+    }
 
-        Typical& object;  /**< Callable object reference. */
+    Typical& object; /**< Callable object reference. */
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Class for calling any callable object.
      * @details       
@@ -206,21 +203,18 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Typical, class Resultant, class ...Parametric>
-    class SimplyObjective : 
-        public Procedural< Resultant, Parametric... >,
-        public Objective< Typical, Resultant, Parametric... >
-    {
+template <class Typical, class Resultant, class... Parametric>
+class SimplyObjective : public Procedural<Resultant, Parametric...>,
+                        public Objective<Typical, Resultant, Parametric...> {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Base class template instance alias.
          */
-        using BaseObjective = Objective< Typical, Resultant, Parametric... >;
+    using BaseObjective = Objective<Typical, Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Construct a callable object reference.
          * @details       
@@ -228,10 +222,12 @@ namespace procedure {
          * @param[in] object
          *     The procedural call object which will be called by reference.
          */
-        constexpr SimplyObjective( Typical& object ) :
-            BaseObjective( object ) {}
+    constexpr SimplyObjective(Typical& object)
+        : BaseObjective(object)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Construct a copy of a callable object reference.
          * @details       
@@ -239,10 +235,12 @@ namespace procedure {
          * @param[in] copy
          *     The instance of this class to copy.
          */
-        constexpr SimplyObjective( const BaseObjective& copy ) :
-            BaseObjective( copy ) {}
+    constexpr SimplyObjective(const BaseObjective& copy)
+        : BaseObjective(copy)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Procedural object call operator.
          * @details       
@@ -253,14 +251,13 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const final
-        {
-            return this->object( arguments... );
-        }
+    Resultant operator()(Parametric... arguments) const final
+    {
+        return this->object(arguments...);
+    }
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Class for calling or comparing any callable object.
      * @details       
@@ -272,27 +269,24 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Typical, class Resultant, class ...Parametric>
-    class ComparablyObjective : 
-        public ComparablyProcedural< Resultant, Parametric... >,
-        public Objective< Typical, Resultant, Parametric... >
-    {
+template <class Typical, class Resultant, class... Parametric>
+class ComparablyObjective : public ComparablyProcedural<Resultant, Parametric...>,
+                            public Objective<Typical, Resultant, Parametric...> {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Base class template instance alias.
          */
-        using BaseProcedural = Procedural< Resultant, Parametric... >;
+    using BaseProcedural = Procedural<Resultant, Parametric...>;
 
-        /**
+    /**
          * @brief
          *     Base class template instance alias.
          */
-        using BaseObjective = Objective< Typical, Resultant, Parametric... >;
+    using BaseObjective = Objective<Typical, Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Construct a callable object reference.
          * @details       
@@ -300,10 +294,12 @@ namespace procedure {
          * @param[in] object
          *     The procedural call object which will be called by reference.
          */
-        constexpr ComparablyObjective( Typical& object ) :
-            BaseObjective( object ) {}
+    constexpr ComparablyObjective(Typical& object)
+        : BaseObjective(object)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Construct a copy of a callable object reference.
          * @details       
@@ -311,10 +307,12 @@ namespace procedure {
          * @param[in] copy
          *     The instance of this class to copy.
          */
-        constexpr ComparablyObjective( const BaseObjective& copy ) :
-            BaseObjective( copy ) {}
+    constexpr ComparablyObjective(const BaseObjective& copy)
+        : BaseObjective(copy)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Procedural object call operator.
          * @details       
@@ -325,12 +323,12 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const final
-        {
-            return this->object( arguments... );
-        }
+    Resultant operator()(Parametric... arguments) const final
+    {
+        return this->object(arguments...);
+    }
 
-        /** 
+    /** 
          * @brief         
          *     ComparablyProcedural equal to operator.
          * @details       
@@ -349,20 +347,20 @@ namespace procedure {
          * @return
          *     True only under conditions described in details section.
          */
-        bool operator==( const BaseProcedural& relative ) const final
-        {
+    bool operator==(const BaseProcedural& relative) const final
+    {
 #ifndef PROCEDURE_MODULE_NORTTI
-            const BaseObjective* same = dynamic_cast<const BaseObjective*>(&relative);
-            if (!same) return false;
-            return BaseObjective::operator==( *same );
+        const BaseObjective* same = dynamic_cast<const BaseObjective*>(&relative);
+        if (!same)
+            return false;
+        return BaseObjective::operator==(*same);
 #else
-            return &relative == this;
+        return &relative == this;
 #endif
-        }
+    }
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Base class for any callable object member function.
      * @details       
@@ -381,30 +379,27 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Typical,
-        class MethodLocational,
-        class Resultant,
-        class ...Parametric
-    >
-    class Methodic {
+template <
+    class Typical,
+    class MethodLocational,
+    class Resultant,
+    class... Parametric>
+class Methodic {
 
 #ifndef PROCEDURE_MODULE_NOSTDCPP
-        static_assert(
-            ::std::is_member_function_pointer< MethodLocational >::value,
-            "MethodLocational: Pointer to member function type required"
-        );
+    static_assert(
+        ::std::is_member_function_pointer<MethodLocational>::value,
+        "MethodLocational: Pointer to member function type required");
 #endif
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Same class template instance alias.
          */
-        using SameMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
+    using SameMethodic = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Equal to operator implementation specific to this class.
          * @details       
@@ -414,12 +409,12 @@ namespace procedure {
          * @return
          *     True only if both reference the same object and member function.
          */
-        constexpr bool operator==( const SameMethodic& relative ) const
-        {
-            return &object == &relative.object && method == relative.method;
-        }
+    constexpr bool operator==(const SameMethodic& relative) const
+    {
+        return &object == &relative.object && method == relative.method;
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Not equal to operator implementation specific to this class.
          * @details       
@@ -429,15 +424,13 @@ namespace procedure {
          * @return
          *     False only if both reference the same object and member function.
          */
-        constexpr bool operator!=( const SameMethodic& relative ) const
-        {
-            return !operator==( relative );
-        }
+    constexpr bool operator!=(const SameMethodic& relative) const
+    {
+        return !operator==(relative);
+    }
 
-
-    protected:
-
-        /** 
+protected:
+    /** 
          * @brief         
          *     Construct a callable object member function reference.
          * @details       
@@ -449,16 +442,17 @@ namespace procedure {
          * @param[in] method
          *     Pointer to the member function which will be called.
          */
-        constexpr Methodic( Typical& object, const MethodLocational method ) : 
-            object( object ), method( method ) 
-        {
+    constexpr Methodic(Typical& object, const MethodLocational method)
+        : object(object)
+        , method(method)
+    {
 #ifndef PROCEDURE_MODULE_NOTHROW
-            if (!method)
-                throw method;
+        if (!method)
+            throw method;
 #endif
-        }
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Construct a copy of a callable object member function reference.
          * @details       
@@ -467,16 +461,18 @@ namespace procedure {
          * @param[in] copy
          *     The instance of this class to copy.
          */
-        constexpr Methodic( const SameMethodic& copy ) : 
-            object( copy.object ), method( copy.method ) {}
+    constexpr Methodic(const SameMethodic& copy)
+        : object(copy.object)
+        , method(copy.method)
+    {
+    }
 
-        Typical& object; /**< Object reference. */
+    Typical& object; /**< Object reference. */
 
-        const MethodLocational method; /**< Callable member function pointer. */
+    const MethodLocational method; /**< Callable member function pointer. */
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Class for calling any callable object member function.
      * @details       
@@ -490,26 +486,22 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Typical,
-        class MethodLocational,
-        class Resultant,
-        class ...Parametric
-    >
-    class SimplyMethodic : 
-        public Procedural< Resultant, Parametric... >,
-        public Methodic< Typical, MethodLocational, Resultant, Parametric... >
-    {
+template <
+    class Typical,
+    class MethodLocational,
+    class Resultant,
+    class... Parametric>
+class SimplyMethodic : public Procedural<Resultant, Parametric...>,
+                       public Methodic<Typical, MethodLocational, Resultant, Parametric...> {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Base class template instance alias.
          */
-        using BaseMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
+    using BaseMethodic = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Construct a callable object member function reference.
          * @details       
@@ -520,10 +512,12 @@ namespace procedure {
          * @param[in] method
          *     The member function pointer location.
          */
-        constexpr SimplyMethodic( Typical& object, const MethodLocational method ) :
-            BaseMethodic( object, method ) {}
+    constexpr SimplyMethodic(Typical& object, const MethodLocational method)
+        : BaseMethodic(object, method)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Construct a copy of a callable object reference.
          * @details       
@@ -531,10 +525,12 @@ namespace procedure {
          * @param[in] copy
          *     The instance of this class to copy.
          */
-        constexpr SimplyMethodic( const BaseMethodic& copy ) : 
-            BaseMethodic( copy ) {}
+    constexpr SimplyMethodic(const BaseMethodic& copy)
+        : BaseMethodic(copy)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Procedural object member function call operator.
          * @details       
@@ -545,14 +541,13 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const final
-        {
-            return (this->object.*this->method)( arguments... );
-        }
+    Resultant operator()(Parametric... arguments) const final
+    {
+        return (this->object.*this->method)(arguments...);
+    }
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Class for calling or comparing any callable object member function.
      * @details       
@@ -567,32 +562,28 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <
-        class Typical,
-        class MethodLocational,
-        class Resultant,
-        class ...Parametric
-    >
-    class ComparablyMethodic : 
-        public ComparablyProcedural< Resultant, Parametric... >,
-        public Methodic< Typical, MethodLocational, Resultant, Parametric... >
-    {
+template <
+    class Typical,
+    class MethodLocational,
+    class Resultant,
+    class... Parametric>
+class ComparablyMethodic : public ComparablyProcedural<Resultant, Parametric...>,
+                           public Methodic<Typical, MethodLocational, Resultant, Parametric...> {
 
-    public:
-
-        /**
+public:
+    /**
          * @brief
          *     Base class template instance alias.
          */
-        using BaseProcedural = Procedural< Resultant, Parametric... >;
+    using BaseProcedural = Procedural<Resultant, Parametric...>;
 
-        /**
+    /**
          * @brief
          *     Base class template instance alias.
          */
-        using BaseMethodic = Methodic< Typical, MethodLocational, Resultant, Parametric... >;
+    using BaseMethodic = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
 
-        /** 
+    /** 
          * @brief         
          *     Construct a callable object member function reference.
          * @details       
@@ -603,10 +594,12 @@ namespace procedure {
          * @param[in] method
          *     The member function pointer location.
          */
-        constexpr ComparablyMethodic( Typical& object, const MethodLocational method ) :
-            BaseMethodic( object, method ) {}
+    constexpr ComparablyMethodic(Typical& object, const MethodLocational method)
+        : BaseMethodic(object, method)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Construct a copy of a callable object reference.
          * @details       
@@ -614,10 +607,12 @@ namespace procedure {
          * @param[in] copy
          *     The instance of this class to copy.
          */
-        constexpr ComparablyMethodic( const BaseMethodic& copy ) : 
-            BaseMethodic( copy ) {}
+    constexpr ComparablyMethodic(const BaseMethodic& copy)
+        : BaseMethodic(copy)
+    {
+    }
 
-        /** 
+    /** 
          * @brief         
          *     Procedural object member function call operator.
          * @details       
@@ -628,12 +623,12 @@ namespace procedure {
          * @return
          *     The return result of the call.
          */
-        Resultant operator()( Parametric... arguments ) const final
-        {
-            return (this->object.*this->method)( arguments... );
-        }
+    Resultant operator()(Parametric... arguments) const final
+    {
+        return (this->object.*this->method)(arguments...);
+    }
 
-        /** 
+    /** 
          * @brief         
          *     ComparablyProcedural equal to operator.
          * @details       
@@ -652,20 +647,20 @@ namespace procedure {
          * @return
          *     True only under conditions described in details section.
          */
-        bool operator==( const BaseProcedural& relative ) const final
-        {
+    bool operator==(const BaseProcedural& relative) const final
+    {
 #ifndef PROCEDURE_MODULE_NORTTI
-            const BaseMethodic* same = dynamic_cast<const BaseMethodic*>(&relative);
-            if (!same) return false;
-            return BaseMethodic::operator==( *same );
+        const BaseMethodic* same = dynamic_cast<const BaseMethodic*>(&relative);
+        if (!same)
+            return false;
+        return BaseMethodic::operator==(*same);
 #else
-            return &relative == this;
+        return &relative == this;
 #endif
-        }
+    }
+};
 
-    };
-
-    /**
+/**
      * @brief         
      *     Explicitly specifies a call return and parameter type expectation.
      * @details       
@@ -676,11 +671,12 @@ namespace procedure {
      * @tparam ...Parametric
      *     Parameter pack which represents the parameter types of the call.
      */
-    template <class Resultant, class ...Parametric>
-    constexpr Functional< Resultant, Parametric... >* 
-    Guide = 0;
+template <class Resultant, class... Parametric>
+constexpr Functional<Resultant, Parametric...>*
+    Guide
+    = 0;
 
-    /**
+/**
      * @brief         
      *     Specify a function as a procedural call object.
      * @details       
@@ -695,15 +691,15 @@ namespace procedure {
      * @return
      *     Procedural object which references function.
      */
-    template <class Resultant, class ...Parametric >
-    static constexpr SimplyObjective< Resultant( Parametric... ), Resultant, Parametric... >
-    Procure( Functional< Resultant, Parametric... >& function )
-    {
-        using Specific = SimplyObjective< Resultant( Parametric... ), Resultant, Parametric... >;
-        return Specific( function );
-    }
+template <class Resultant, class... Parametric>
+static constexpr SimplyObjective<Resultant(Parametric...), Resultant, Parametric...>
+Procure(Functional<Resultant, Parametric...>& function)
+{
+    using Specific = SimplyObjective<Resultant(Parametric...), Resultant, Parametric...>;
+    return Specific(function);
+}
 
-    /**
+/**
      * @brief         
      *     Specify a callable object as a procedural call object.
      * @details       
@@ -723,15 +719,15 @@ namespace procedure {
      * @param[in] guide
      *     Used for template argument deduction, value is ignored.
      */
-    template <class Typical, class Resultant, class ...Parametric>
-    static constexpr SimplyObjective< Typical, Resultant, Parametric... >
-    Procure( Typical& object, Functional< Resultant, Parametric... >* guide ) 
-    {
-        using Specific = SimplyObjective< Typical, Resultant, Parametric... >;
-        return Specific( object );
-    }
+template <class Typical, class Resultant, class... Parametric>
+static constexpr SimplyObjective<Typical, Resultant, Parametric...>
+Procure(Typical& object, Functional<Resultant, Parametric...>* guide)
+{
+    using Specific = SimplyObjective<Typical, Resultant, Parametric...>;
+    return Specific(object);
+}
 
-    /**
+/**
      * @brief         
      *     Specify an object member function as a procedural call object.
      * @details       
@@ -754,30 +750,28 @@ namespace procedure {
      * @param[in] guide
      *     Used for template argument deduction, value is ignored.
      */
-    template <
-        class Typical,
-        class MethodLocational,
-        class Resultant,
-        class ...Parametric
-    >
-    static constexpr SimplyMethodic< Typical, MethodLocational, Resultant, Parametric... >
-    Procure( 
-        Typical& object, 
-        const MethodLocational method, 
-        Functional< Resultant, Parametric... >* guide 
-    ) {
+template <
+    class Typical,
+    class MethodLocational,
+    class Resultant,
+    class... Parametric>
+static constexpr SimplyMethodic<Typical, MethodLocational, Resultant, Parametric...>
+Procure(
+    Typical& object,
+    const MethodLocational method,
+    Functional<Resultant, Parametric...>* guide)
+{
 #ifndef PROCEDURE_MODULE_NOSTDCPP
-        using namespace std;
-        static_assert(
-            is_member_function_pointer< MethodLocational >::value,
-            "MethodLocational: Pointer to member function type required"
-        );
+    using namespace std;
+    static_assert(
+        is_member_function_pointer<MethodLocational>::value,
+        "MethodLocational: Pointer to member function type required");
 #endif
-        using Specific = SimplyMethodic< Typical, MethodLocational, Resultant, Parametric... >;
-        return Specific( object, method );
-    }
+    using Specific = SimplyMethodic<Typical, MethodLocational, Resultant, Parametric...>;
+    return Specific(object, method);
+}
 
-    /**
+/**
      * @brief         
      *     Specify a function as a procedural call object.
      * @details       
@@ -790,15 +784,15 @@ namespace procedure {
      * @param[in] function
      *     Reference to the function which will be called.
      */
-    template <class Resultant, class ...Parametric >
-    static constexpr ComparablyObjective< Resultant( Parametric... ), Resultant, Parametric... >
-    ProcureComparably( Functional< Resultant, Parametric... >& function )
-    {
-        using Specific = ComparablyObjective< Resultant( Parametric... ), Resultant, Parametric... >;
-        return Specific( function );
-    }
+template <class Resultant, class... Parametric>
+static constexpr ComparablyObjective<Resultant(Parametric...), Resultant, Parametric...>
+ProcureComparably(Functional<Resultant, Parametric...>& function)
+{
+    using Specific = ComparablyObjective<Resultant(Parametric...), Resultant, Parametric...>;
+    return Specific(function);
+}
 
-    /**
+/**
      * @brief         
      *     Specify a callable object as a procedural call object.
      * @details       
@@ -818,15 +812,15 @@ namespace procedure {
      * @param[in] guide
      *     Used for template argument deduction, value is ignored.
      */
-    template <class Typical, class Resultant, class ...Parametric>
-    static constexpr ComparablyObjective< Typical, Resultant, Parametric... >
-    ProcureComparably( Typical& object, Functional< Resultant, Parametric... >* guide ) 
-    {
-        using Specific = ComparablyObjective< Typical, Resultant, Parametric... >;
-        return Specific( object );
-    }
+template <class Typical, class Resultant, class... Parametric>
+static constexpr ComparablyObjective<Typical, Resultant, Parametric...>
+ProcureComparably(Typical& object, Functional<Resultant, Parametric...>* guide)
+{
+    using Specific = ComparablyObjective<Typical, Resultant, Parametric...>;
+    return Specific(object);
+}
 
-    /**
+/**
      * @brief         
      *     Specify an object member function as a procedural call object.
      * @details       
@@ -849,28 +843,26 @@ namespace procedure {
      * @param[in] guide
      *     Used for template argument deduction, value is ignored.
      */
-    template <
-        class Typical,
-        class MethodLocational,
-        class Resultant,
-        class ...Parametric
-    >
-    static constexpr ComparablyMethodic< Typical, MethodLocational, Resultant, Parametric... >
-    ProcureComparably( 
-        Typical& object, 
-        const MethodLocational method, 
-        Functional< Resultant, Parametric... >* guide 
-    ) {
+template <
+    class Typical,
+    class MethodLocational,
+    class Resultant,
+    class... Parametric>
+static constexpr ComparablyMethodic<Typical, MethodLocational, Resultant, Parametric...>
+ProcureComparably(
+    Typical& object,
+    const MethodLocational method,
+    Functional<Resultant, Parametric...>* guide)
+{
 #ifndef PROCEDURE_MODULE_NOSTDCPP
-        using namespace std;
-        static_assert(
-            is_member_function_pointer< MethodLocational >::value,
-            "MethodLocational: Pointer to member function type required"
-        );
+    using namespace std;
+    static_assert(
+        is_member_function_pointer<MethodLocational>::value,
+        "MethodLocational: Pointer to member function type required");
 #endif
-        using Specific = ComparablyMethodic< Typical, MethodLocational, Resultant, Parametric... >;
-        return Specific( object, method );
-    }
+    using Specific = ComparablyMethodic<Typical, MethodLocational, Resultant, Parametric...>;
+    return Specific(object, method);
+}
 
 }
 

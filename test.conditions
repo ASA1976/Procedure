@@ -15,10 +15,14 @@
 // TEST_PRODUCE4 Returns call object based on Test4Typical and Test4Methodic arguments
 
 // Forbidden test identifiers section: (DO NOT USE IN TEST CASE CODE)
-struct {void operator()() {puts( "Test1" );}} Test1;
-auto Test2 = []() -> void {puts( "Test2" );};
-void Test3() {puts( "Test3" );}
-struct {void run() {puts( "Test4" );}} Test4;
+struct {
+    void operator()() { puts("Test1"); }
+} Test1;
+auto Test2 = []() -> void { puts("Test2"); };
+void Test3() { puts("Test3"); }
+struct {
+    void run() { puts("Test4"); }
+} Test4;
 
 // Allowed type names: (USE THESE AS REQUIRED)
 using Test1Typical = decltype(Test1);
@@ -29,38 +33,38 @@ using Test4Methodic = decltype(&Test4Typical::run);
 
 // Internal section: (IGNORE THESE, EXCEPT FOR ANALYSIS PURPOSES)
 template <class Referential>
-using Applicatory = void( Referential );
-template <class Active, class ...Acquisitional>
-using Conducive = Active( Acquisitional... );
-template <class Referential, class Active, class ...Acquisitional>
-static inline void RunTest( 
-    Applicatory<Referential>& invoke, 
-    Conducive<Active, Acquisitional...>& produce, 
-    Acquisitional... acquisition 
-) {
-    invoke( produce( acquisition... ) );
+using Applicatory = void(Referential);
+template <class Active, class... Acquisitional>
+using Conducive = Active(Acquisitional...);
+template <class Referential, class Active, class... Acquisitional>
+static inline void RunTest(
+    Applicatory<Referential>& invoke,
+    Conducive<Active, Acquisitional...>& produce,
+    Acquisitional... acquisition)
+{
+    invoke(produce(acquisition...));
 }
 template <class Referential, class Test1Active, class Test2Active, class Test3Active, class Test4Active>
-static inline void RunTests( 
-    Applicatory<Referential>& invoke, 
-    Conducive<Test1Active, Test1Typical&>& produce1, 
-    Conducive<Test2Active, Test2Typical&>& produce2, 
-    Conducive<Test3Active, Test3Typical&>& produce3, 
-    Conducive<Test4Active, Test4Typical&, Test4Methodic>& produce4
-) {
+static inline void RunTests(
+    Applicatory<Referential>& invoke,
+    Conducive<Test1Active, Test1Typical&>& produce1,
+    Conducive<Test2Active, Test2Typical&>& produce2,
+    Conducive<Test3Active, Test3Typical&>& produce3,
+    Conducive<Test4Active, Test4Typical&, Test4Methodic>& produce4)
+{
     static auto& RunTest1 = RunTest<Referential, Test1Active, Test1Typical&>;
     static auto& RunTest2 = RunTest<Referential, Test2Active, Test2Typical&>;
     static auto& RunTest3 = RunTest<Referential, Test3Active, Test3Typical&>;
     static auto& RunTest4 = RunTest<Referential, Test4Active, Test4Typical&, Test4Methodic>;
-    RunTest1( invoke, produce1, Test1 );
-    RunTest2( invoke, produce2, Test2 );
-    RunTest3( invoke, produce3, Test3 );
-    RunTest4( invoke, produce4, Test4, &Test4Typical::run );
+    RunTest1(invoke, produce1, Test1);
+    RunTest2(invoke, produce2, Test2);
+    RunTest3(invoke, produce3, Test3);
+    RunTest4(invoke, produce4, Test4, &Test4Typical::run);
 }
 int main()
 {
     for (size_t count = 0; count < TEST_LOOP; count++)
-        RunTests( TEST_CALL, TEST_PRODUCE1, TEST_PRODUCE2, TEST_PRODUCE3, TEST_PRODUCE4 );
+        RunTests(TEST_CALL, TEST_PRODUCE1, TEST_PRODUCE2, TEST_PRODUCE3, TEST_PRODUCE4);
 }
 
 #endif
