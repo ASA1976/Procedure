@@ -22,87 +22,87 @@
 namespace procedure {
 
 /**
-     * @brief 
-     *     Proper function type.
-     * @details 
-     *     This type is used to represent any function type.  It is useful for
-     *     clarity when specifying the type of an identifier, as it forces the
-     *     identifier to appear last.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief 
+ *     Proper function type.
+ * @details 
+ *     This type is used to represent any function type.  It is useful for
+ *     clarity when specifying the type of an identifier, as it forces the
+ *     identifier to appear last.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Resultant, class... Parametric>
 using Functional = Resultant(Parametric...);
 
 /**
-     * @brief         
-     *     Abstract procedural base class.
-     * @details       
-     *     This type is used to call any procedure matching the specified
-     *     return and parameter types, using the sole virtual call operator 
-     *     member.  Only references and pointers to this type are useful.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief         
+ *     Abstract procedural base class.
+ * @details       
+ *     This type is used to call any procedure matching the specified
+ *     return and parameter types, using the sole virtual call operator 
+ *     member.  Only references and pointers to this type are useful.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Resultant, class... Parametric>
 class Procedural {
 
 public:
     /**
-         * @brief
-         *     Pure virtual call operator.
-         * @details
-         *     This operator must be implemented by classes which are derived
-         *     from this class.
-         */
+     * @brief
+     *     Pure virtual call operator.
+     * @details
+     *     This operator must be implemented by classes which are derived
+     *     from this class.
+     */
     virtual Resultant operator()(Parametric...) const = 0;
 };
 
 /**
-     * @brief         
-     *     Abstract comparable procedural base class.
-     * @details       
-     *     This type is used to call or compare procedures matching the 
-     *     specified return and parameter types
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief         
+ *     Abstract comparable procedural base class.
+ * @details       
+ *     This type is used to call or compare procedures matching the 
+ *     specified return and parameter types
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Resultant, class... Parametric>
 class ComparablyProcedural : public Procedural<Resultant, Parametric...> {
 
 public:
     /**
-         * @brief
-         *     Base class type template instance alias.
-         */
+     * @brief
+     *     Base class type template instance alias.
+     */
     using BaseProcedural = Procedural<Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Pure virtual equal to operator.
-         * @details       
-         *     This operator must be implemented by classes which are derived 
-         *     from this class.
-         */
+     * @brief         
+     *     Pure virtual equal to operator.
+     * @details       
+     *     This operator must be implemented by classes which are derived 
+     *     from this class.
+     */
     virtual bool operator==(const BaseProcedural&) const = 0;
 
     /** 
-         * @brief         
-         *     Not equal to operator implementation.
-         * @details       
-         *     This operator calls the equal to operator and inverts it's 
-         *     return value.
-         * @param[in] relative
-         *     Procedural object to be compared not equal to.
-         * @return
-         *     The inverse of the equal to operator return value.
-         */
+     * @brief         
+     *     Not equal to operator implementation.
+     * @details       
+     *     This operator calls the equal to operator and inverts it's 
+     *     return value.
+     * @param[in] relative
+     *     Procedural object to be compared not equal to.
+     * @return
+     *     The inverse of the equal to operator return value.
+     */
     constexpr bool operator!=(const BaseProcedural& relative) const
     {
         return !operator==(relative);
@@ -110,52 +110,52 @@ public:
 };
 
 /**
-     * @brief         
-     *     Base class for any callable object, which excludes member functions.
-     * @details       
-     *     This type is used to store a reference to any callable object.
-     * @tparam Typical
-     *     Type of the callable object.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief         
+ *     Base class for any callable object, which excludes member functions.
+ * @details       
+ *     This type is used to store a reference to any callable object.
+ * @tparam Typical
+ *     Type of the callable object.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Typical, class Resultant, class... Parametric>
 class Objective {
 
 public:
     /**
-         * @brief
-         *     Same class type template instance alias.
-         */
+     * @brief
+     *     Same class type template instance alias.
+     */
     using SameObjective = Objective<Typical, Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Equal to operator implementation specific to this class.
-         * @details       
-         *     This operator compares the addresses of the callable objects.
-         * @param[in] relative
-         *     Same objective type instance to be compared equal to.
-         * @return
-         *     True only if both reference the same object.
-         */
+     * @brief         
+     *     Equal to operator implementation specific to this class.
+     * @details       
+     *     This operator compares the addresses of the callable objects.
+     * @param[in] relative
+     *     Same objective type instance to be compared equal to.
+     * @return
+     *     True only if both reference the same object.
+     */
     constexpr bool operator==(const SameObjective& relative) const
     {
         return &object == &relative.object;
     }
 
     /** 
-         * @brief         
-         *     Not equal to operator implementation specific to this class.
-         * @details       
-         *     This operator compares the addresses of the callable objects.
-         * @param[in] relative
-         *     Same objective type instance to be compared not equal to.
-         * @return
-         *     False only if both reference the same object.
-         */
+     * @brief         
+     *     Not equal to operator implementation specific to this class.
+     * @details       
+     *     This operator compares the addresses of the callable objects.
+     * @param[in] relative
+     *     Same objective type instance to be compared not equal to.
+     * @return
+     *     False only if both reference the same object.
+     */
     constexpr bool operator!=(const SameObjective& relative) const
     {
         return !operator==(relative);
@@ -163,26 +163,26 @@ public:
 
 protected:
     /** 
-         * @brief         
-         *     Construct a callable object reference.
-         * @details       
-         *     The resulting instance will only reference the specified object.
-         * @param[in] object
-         *     The callable object which will be called by reference.
-         */
+     * @brief         
+     *     Construct a callable object reference.
+     * @details       
+     *     The resulting instance will only reference the specified object.
+     * @param[in] object
+     *     The callable object which will be called by reference.
+     */
     constexpr Objective(Typical& object)
         : object(object)
     {
     }
 
     /** 
-         * @brief         
-         *     Construct a copy of a callable object reference.
-         * @details       
-         *     The resulting instance will reference the same object.
-         * @param[in] copy
-         *     The instance of this class to copy.
-         */
+     * @brief         
+     *     Construct a copy of a callable object reference.
+     * @details       
+     *     The resulting instance will reference the same object.
+     * @param[in] copy
+     *     The instance of this class to copy.
+     */
     constexpr Objective(const SameObjective& copy)
         : object(copy.object)
     {
@@ -192,65 +192,65 @@ protected:
 };
 
 /**
-     * @brief         
-     *     Class for calling any callable object.
-     * @details       
-     *     This type is used to call any callable object.
-     * @tparam Typical
-     *     Type of the callable object.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief         
+ *     Class for calling any callable object.
+ * @details       
+ *     This type is used to call any callable object.
+ * @tparam Typical
+ *     Type of the callable object.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Typical, class Resultant, class... Parametric>
 class SimplyObjective : public Procedural<Resultant, Parametric...>,
                         public Objective<Typical, Resultant, Parametric...> {
 
 public:
     /**
-         * @brief
-         *     Base class template instance alias.
-         */
+     * @brief
+     *     Base class template instance alias.
+     */
     using BaseObjective = Objective<Typical, Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Construct a callable object reference.
-         * @details       
-         *     The resulting instance will only reference the specified object.
-         * @param[in] object
-         *     The procedural call object which will be called by reference.
-         */
+     * @brief         
+     *     Construct a callable object reference.
+     * @details       
+     *     The resulting instance will only reference the specified object.
+     * @param[in] object
+     *     The procedural call object which will be called by reference.
+     */
     constexpr SimplyObjective(Typical& object)
         : BaseObjective(object)
     {
     }
 
     /** 
-         * @brief         
-         *     Construct a copy of a callable object reference.
-         * @details       
-         *     The resulting instance will reference the same object.
-         * @param[in] copy
-         *     The instance of this class to copy.
-         */
+     * @brief         
+     *     Construct a copy of a callable object reference.
+     * @details       
+     *     The resulting instance will reference the same object.
+     * @param[in] copy
+     *     The instance of this class to copy.
+     */
     constexpr SimplyObjective(const BaseObjective& copy)
         : BaseObjective(copy)
     {
     }
 
     /** 
-         * @brief         
-         *     Procedural object call operator.
-         * @details       
-         *     Implements the procedural call operator by calling the object
-         *     by reference and returning it's result to the calling context.
-         * @param[in] ...arguments
-         *     Argument pack which is expanded.
-         * @return
-         *     The return result of the call.
-         */
+     * @brief         
+     *     Procedural object call operator.
+     * @details       
+     *     Implements the procedural call operator by calling the object
+     *     by reference and returning it's result to the calling context.
+     * @param[in] ...arguments
+     *     Argument pack which is expanded.
+     * @return
+     *     The return result of the call.
+     */
     Resultant operator()(Parametric... arguments) const final
     {
         return this->object(arguments...);
@@ -258,95 +258,95 @@ public:
 };
 
 /**
-     * @brief         
-     *     Class for calling or comparing any callable object.
-     * @details       
-     *     This type is used to call or compare any callable object.
-     * @tparam Typical
-     *     Type of the callable object.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief         
+ *     Class for calling or comparing any callable object.
+ * @details       
+ *     This type is used to call or compare any callable object.
+ * @tparam Typical
+ *     Type of the callable object.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Typical, class Resultant, class... Parametric>
 class ComparablyObjective : public ComparablyProcedural<Resultant, Parametric...>,
                             public Objective<Typical, Resultant, Parametric...> {
 
 public:
     /**
-         * @brief
-         *     Base class template instance alias.
-         */
+     * @brief
+     *     Base class template instance alias.
+     */
     using BaseProcedural = Procedural<Resultant, Parametric...>;
 
     /**
-         * @brief
-         *     Base class template instance alias.
-         */
+     * @brief
+     *     Base class template instance alias.
+     */
     using BaseObjective = Objective<Typical, Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Construct a callable object reference.
-         * @details       
-         *     The resulting instance will only reference the specified object.
-         * @param[in] object
-         *     The procedural call object which will be called by reference.
-         */
+     * @brief         
+     *     Construct a callable object reference.
+     * @details       
+     *     The resulting instance will only reference the specified object.
+     * @param[in] object
+     *     The procedural call object which will be called by reference.
+     */
     constexpr ComparablyObjective(Typical& object)
         : BaseObjective(object)
     {
     }
 
     /** 
-         * @brief         
-         *     Construct a copy of a callable object reference.
-         * @details       
-         *     The resulting instance will reference the same object.
-         * @param[in] copy
-         *     The instance of this class to copy.
-         */
+     * @brief         
+     *     Construct a copy of a callable object reference.
+     * @details       
+     *     The resulting instance will reference the same object.
+     * @param[in] copy
+     *     The instance of this class to copy.
+     */
     constexpr ComparablyObjective(const BaseObjective& copy)
         : BaseObjective(copy)
     {
     }
 
     /** 
-         * @brief         
-         *     Procedural object call operator.
-         * @details       
-         *     Implements the procedural call operator by calling the object
-         *     by reference and returning it's result to the calling context.
-         * @param[in] ...arguments
-         *     Argument pack which is expanded.
-         * @return
-         *     The return result of the call.
-         */
+     * @brief         
+     *     Procedural object call operator.
+     * @details       
+     *     Implements the procedural call operator by calling the object
+     *     by reference and returning it's result to the calling context.
+     * @param[in] ...arguments
+     *     Argument pack which is expanded.
+     * @return
+     *     The return result of the call.
+     */
     Resultant operator()(Parametric... arguments) const final
     {
         return this->object(arguments...);
     }
 
     /** 
-         * @brief         
-         *     ComparablyProcedural equal to operator.
-         * @details       
-         *     Implements the procedural equal to operator.  If the macro 
-         *     PROCEDURE_MODULE_NORTTI is not defined, this operator uses a 
-         *     dynamic cast and if relative is not of the same base objective
-         *     class it returns false.  If relative is of the same base 
-         *     objective class it compares their object member addresses and 
-         *     returns the result.  If the macro PROCEDURE_MODULE_NORTTI is 
-         *     defined, compares the address of this to the address of relative
-         *     and only returns true if they are  equal.  Do not create more 
-         *     than one objective instance per unique callable object address 
-         *     if the equal to operator will be in use without RTTI available.
-         * @param[in] relative
-         *     Relative procedural instance to compare equality with.
-         * @return
-         *     True only under conditions described in details section.
-         */
+     * @brief         
+     *     ComparablyProcedural equal to operator.
+     * @details       
+     *     Implements the procedural equal to operator.  If the macro 
+     *     PROCEDURE_MODULE_NORTTI is not defined, this operator uses a 
+     *     dynamic cast and if relative is not of the same base objective
+     *     class it returns false.  If relative is of the same base 
+     *     objective class it compares their object member addresses and 
+     *     returns the result.  If the macro PROCEDURE_MODULE_NORTTI is 
+     *     defined, compares the address of this to the address of relative
+     *     and only returns true if they are  equal.  Do not create more 
+     *     than one objective instance per unique callable object address 
+     *     if the equal to operator will be in use without RTTI available.
+     * @param[in] relative
+     *     Relative procedural instance to compare equality with.
+     * @return
+     *     True only under conditions described in details section.
+     */
     bool operator==(const BaseProcedural& relative) const final
     {
 #ifndef PROCEDURE_MODULE_NORTTI
@@ -361,29 +361,25 @@ public:
 };
 
 /**
-     * @brief         
-     *     Base class for any callable object member function.
-     * @details       
-     *     This type is used to store a reference to a callable object and 
-     *     pointer to member function. Define the macro 
-     *     PROCEDURE_MODULE_NOTHROW to prevent throwing the null member 
-     *     function pointer.  Define the macro PROCEDURE_MODULE_NOSTDCPP to 
-     *     prevent static assertions using the type_traits standard library 
-     *     header.
-     * @tparam Typical
-     *     Type of the object.
-     * @tparam MethodLocational
-     *     Pointer to member function type.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
-template <
-    class Typical,
-    class MethodLocational,
-    class Resultant,
-    class... Parametric>
+ * @brief         
+ *     Base class for any callable object member function.
+ * @details       
+ *     This type is used to store a reference to a callable object and 
+ *     pointer to member function. Define the macro 
+ *     PROCEDURE_MODULE_NOTHROW to prevent throwing the null member 
+ *     function pointer.  Define the macro PROCEDURE_MODULE_NOSTDCPP to 
+ *     prevent static assertions using the type_traits standard library 
+ *     header.
+ * @tparam Typical
+ *     Type of the object.
+ * @tparam MethodLocational
+ *     Pointer to member function type.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
+template <class Typical, class MethodLocational, class Resultant, class... Parametric>
 class Methodic {
 
 #ifndef PROCEDURE_MODULE_NOSTDCPP
@@ -394,36 +390,36 @@ class Methodic {
 
 public:
     /**
-         * @brief
-         *     Same class template instance alias.
-         */
+     * @brief
+     *     Same class template instance alias.
+     */
     using SameMethodic = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Equal to operator implementation specific to this class.
-         * @details       
-         *     This operator compares the addresses of the objects and methods.
-         * @param[in] relative
-         *     Same methodic type instance to be compared equal to.
-         * @return
-         *     True only if both reference the same object and member function.
-         */
+     * @brief         
+     *     Equal to operator implementation specific to this class.
+     * @details       
+     *     This operator compares the addresses of the objects and methods.
+     * @param[in] relative
+     *     Same methodic type instance to be compared equal to.
+     * @return
+     *     True only if both reference the same object and member function.
+     */
     constexpr bool operator==(const SameMethodic& relative) const
     {
         return &object == &relative.object && method == relative.method;
     }
 
     /** 
-         * @brief         
-         *     Not equal to operator implementation specific to this class.
-         * @details       
-         *     This operator compares the addresses of the objects and methods.
-         * @param[in] relative
-         *     Same objective instance to be compared not equal to.
-         * @return
-         *     False only if both reference the same object and member function.
-         */
+     * @brief         
+     *     Not equal to operator implementation specific to this class.
+     * @details       
+     *     This operator compares the addresses of the objects and methods.
+     * @param[in] relative
+     *     Same objective instance to be compared not equal to.
+     * @return
+     *     False only if both reference the same object and member function.
+     */
     constexpr bool operator!=(const SameMethodic& relative) const
     {
         return !operator==(relative);
@@ -431,17 +427,17 @@ public:
 
 protected:
     /** 
-         * @brief         
-         *     Construct a callable object member function reference.
-         * @details       
-         *     The resulting instance will only reference the specified object
-         *     member function.  Define the macro PROCEDURE_MODULE_NOTHROW to 
-         *     prevent throwing the null member function pointer.
-         * @param[in] object
-         *     Reference to the object whose member will be called.
-         * @param[in] method
-         *     Pointer to the member function which will be called.
-         */
+     * @brief         
+     *     Construct a callable object member function reference.
+     * @details       
+     *     The resulting instance will only reference the specified object
+     *     member function.  Define the macro PROCEDURE_MODULE_NOTHROW to 
+     *     prevent throwing the null member function pointer.
+     * @param[in] object
+     *     Reference to the object whose member will be called.
+     * @param[in] method
+     *     Pointer to the member function which will be called.
+     */
     constexpr Methodic(Typical& object, const MethodLocational method)
         : object(object)
         , method(method)
@@ -453,14 +449,14 @@ protected:
     }
 
     /** 
-         * @brief         
-         *     Construct a copy of a callable object member function reference.
-         * @details       
-         *     The resulting instance will reference the same object and member
-         *     function.
-         * @param[in] copy
-         *     The instance of this class to copy.
-         */
+     * @brief         
+     *     Construct a copy of a callable object member function reference.
+     * @details       
+     *     The resulting instance will reference the same object and member
+     *     function.
+     * @param[in] copy
+     *     The instance of this class to copy.
+     */
     constexpr Methodic(const SameMethodic& copy)
         : object(copy.object)
         , method(copy.method)
@@ -473,74 +469,70 @@ protected:
 };
 
 /**
-     * @brief         
-     *     Class for calling any callable object member function.
-     * @details       
-     *     This type is used to call any callable object member function.
-     * @tparam Typical
-     *     Type of the object.
-     * @tparam MethodLocational
-     *     Pointer to member function type.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
-template <
-    class Typical,
-    class MethodLocational,
-    class Resultant,
-    class... Parametric>
+ * @brief         
+ *     Class for calling any callable object member function.
+ * @details       
+ *     This type is used to call any callable object member function.
+ * @tparam Typical
+ *     Type of the object.
+ * @tparam MethodLocational
+ *     Pointer to member function type.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
+template <class Typical, class MethodLocational, class Resultant, class... Parametric>
 class SimplyMethodic : public Procedural<Resultant, Parametric...>,
                        public Methodic<Typical, MethodLocational, Resultant, Parametric...> {
 
 public:
     /**
-         * @brief
-         *     Base class template instance alias.
-         */
+     * @brief
+     *     Base class template instance alias.
+     */
     using BaseMethodic = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Construct a callable object member function reference.
-         * @details       
-         *     The resulting instance will only reference the specified object
-         *     and member function pointer location.
-         * @param[in] object
-         *     The object which the member function will reference.
-         * @param[in] method
-         *     The member function pointer location.
-         */
+     * @brief         
+     *     Construct a callable object member function reference.
+     * @details       
+     *     The resulting instance will only reference the specified object
+     *     and member function pointer location.
+     * @param[in] object
+     *     The object which the member function will reference.
+     * @param[in] method
+     *     The member function pointer location.
+     */
     constexpr SimplyMethodic(Typical& object, const MethodLocational method)
         : BaseMethodic(object, method)
     {
     }
 
     /** 
-         * @brief         
-         *     Construct a copy of a callable object reference.
-         * @details       
-         *     The resulting instance will reference the same object.
-         * @param[in] copy
-         *     The instance of this class to copy.
-         */
+     * @brief         
+     *     Construct a copy of a callable object reference.
+     * @details       
+     *     The resulting instance will reference the same object.
+     * @param[in] copy
+     *     The instance of this class to copy.
+     */
     constexpr SimplyMethodic(const BaseMethodic& copy)
         : BaseMethodic(copy)
     {
     }
 
     /** 
-         * @brief         
-         *     Procedural object member function call operator.
-         * @details       
-         *     Implements the procedural call operator by calling the object
-         *     member function and returning it's result to the calling context.
-         * @param[in] ...arguments
-         *     Argument pack which is expanded.
-         * @return
-         *     The return result of the call.
-         */
+     * @brief         
+     *     Procedural object member function call operator.
+     * @details       
+     *     Implements the procedural call operator by calling the object
+     *     member function and returning it's result to the calling context.
+     * @param[in] ...arguments
+     *     Argument pack which is expanded.
+     * @return
+     *     The return result of the call.
+     */
     Resultant operator()(Parametric... arguments) const final
     {
         return (this->object.*this->method)(arguments...);
@@ -548,105 +540,101 @@ public:
 };
 
 /**
-     * @brief         
-     *     Class for calling or comparing any callable object member function.
-     * @details       
-     *     This type is used to call or compare any callable object member 
-     *     function.
-     * @tparam Typical
-     *     Type of the object.
-     * @tparam MethodLocational
-     *     Pointer to member function type.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
-template <
-    class Typical,
-    class MethodLocational,
-    class Resultant,
-    class... Parametric>
+ * @brief         
+ *     Class for calling or comparing any callable object member function.
+ * @details       
+ *     This type is used to call or compare any callable object member 
+ *     function.
+ * @tparam Typical
+ *     Type of the object.
+ * @tparam MethodLocational
+ *     Pointer to member function type.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
+template <class Typical, class MethodLocational, class Resultant, class... Parametric>
 class ComparablyMethodic : public ComparablyProcedural<Resultant, Parametric...>,
                            public Methodic<Typical, MethodLocational, Resultant, Parametric...> {
 
 public:
     /**
-         * @brief
-         *     Base class template instance alias.
-         */
+     * @brief
+     *     Base class template instance alias.
+     */
     using BaseProcedural = Procedural<Resultant, Parametric...>;
 
     /**
-         * @brief
-         *     Base class template instance alias.
-         */
+     * @brief
+     *     Base class template instance alias.
+     */
     using BaseMethodic = Methodic<Typical, MethodLocational, Resultant, Parametric...>;
 
     /** 
-         * @brief         
-         *     Construct a callable object member function reference.
-         * @details       
-         *     The resulting instance will only reference the specified object
-         *     and member function pointer location.
-         * @param[in] object
-         *     The object which the member function will reference.
-         * @param[in] method
-         *     The member function pointer location.
-         */
+     * @brief         
+     *     Construct a callable object member function reference.
+     * @details       
+     *     The resulting instance will only reference the specified object
+     *     and member function pointer location.
+     * @param[in] object
+     *     The object which the member function will reference.
+     * @param[in] method
+     *     The member function pointer location.
+     */
     constexpr ComparablyMethodic(Typical& object, const MethodLocational method)
         : BaseMethodic(object, method)
     {
     }
 
     /** 
-         * @brief         
-         *     Construct a copy of a callable object reference.
-         * @details       
-         *     The resulting instance will reference the same object.
-         * @param[in] copy
-         *     The instance of this class to copy.
-         */
+     * @brief         
+     *     Construct a copy of a callable object reference.
+     * @details       
+     *     The resulting instance will reference the same object.
+     * @param[in] copy
+     *     The instance of this class to copy.
+     */
     constexpr ComparablyMethodic(const BaseMethodic& copy)
         : BaseMethodic(copy)
     {
     }
 
     /** 
-         * @brief         
-         *     Procedural object member function call operator.
-         * @details       
-         *     Implements the procedural call operator by calling the object
-         *     member function and returning it's result to the calling context.
-         * @param[in] ...arguments
-         *     Argument pack which is expanded.
-         * @return
-         *     The return result of the call.
-         */
+     * @brief         
+     *     Procedural object member function call operator.
+     * @details       
+     *     Implements the procedural call operator by calling the object
+     *     member function and returning it's result to the calling context.
+     * @param[in] ...arguments
+     *     Argument pack which is expanded.
+     * @return
+     *     The return result of the call.
+     */
     Resultant operator()(Parametric... arguments) const final
     {
         return (this->object.*this->method)(arguments...);
     }
 
     /** 
-         * @brief         
-         *     ComparablyProcedural equal to operator.
-         * @details       
-         *     Implements the procedural equal to operator.  If the macro 
-         *     PROCEDURE_MODULE_NORTTI is not defined, this operator uses a 
-         *     dynamic cast and if relative is not of the same base methodic
-         *     class it returns false.  If relative is of the same base 
-         *     methodic class it compares their object and method addresses and 
-         *     returns the result.  If the macro PROCEDURE_MODULE_NORTTI is 
-         *     defined, compares this to the address of relative and only 
-         *     returns true if they are  equal.  Do not create more than one 
-         *     methodic instance per unique callable object address if the equal
-         *     to operator will be in use without RTTI available.
-         * @param[in] relative
-         *     Relative procedural instance to compare equality with.
-         * @return
-         *     True only under conditions described in details section.
-         */
+     * @brief         
+     *     ComparablyProcedural equal to operator.
+     * @details       
+     *     Implements the procedural equal to operator.  If the macro 
+     *     PROCEDURE_MODULE_NORTTI is not defined, this operator uses a 
+     *     dynamic cast and if relative is not of the same base methodic
+     *     class it returns false.  If relative is of the same base 
+     *     methodic class it compares their object and method addresses and 
+     *     returns the result.  If the macro PROCEDURE_MODULE_NORTTI is 
+     *     defined, compares this to the address of relative and only 
+     *     returns true if they are  equal.  Do not create more than one 
+     *     methodic instance per unique callable object address if the equal
+     *     to operator will be in use without RTTI available.
+     * @param[in] relative
+     *     Relative procedural instance to compare equality with.
+     * @return
+     *     True only under conditions described in details section.
+     */
     bool operator==(const BaseProcedural& relative) const final
     {
 #ifndef PROCEDURE_MODULE_NORTTI
@@ -661,105 +649,108 @@ public:
 };
 
 /**
-     * @brief         
-     *     Explicitly specifies a call return and parameter type expectation.
-     * @details       
-     *     This null pointer constant expression object is used to specify the
-     *     return and parameter types of the call to a Procure template instance.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     */
+ * @brief         
+ *     Explicitly specifies a call return and parameter type expectation.
+ * @details       
+ *     This null pointer constant expression object is used to specify the
+ *     return and parameter types of the call to a Procure template instance.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ */
 template <class Resultant, class... Parametric>
-constexpr Functional<Resultant, Parametric...>*
-    Guide
-    = 0;
+constexpr Functional<Resultant, Parametric...>* Guide = 0;
 
 /**
-     * @brief         
-     *     Specify a function as a procedural call object.
-     * @details       
-     *     This function template is used to create a simple representation of a 
-     *     procedural call to a function.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     * @param[in] function
-     *     Reference to the function which will be called.
-     * @return
-     *     Procedural object which references function.
-     */
+ * @brief         
+ *     Specify a function as a procedural call object.
+ * @details       
+ *     This function template is used to create a simple representation of a 
+ *     procedural call to a function.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ * @param[in] function
+ *     Reference to the function which will be called.
+ * @return
+ *     Procedural object which references function.
+ */
 template <class Resultant, class... Parametric>
 static constexpr SimplyObjective<Resultant(Parametric...), Resultant, Parametric...>
-Procure(Functional<Resultant, Parametric...>& function)
+Procure(
+    Functional<Resultant, Parametric...>&
+        function)
 {
     using Specific = SimplyObjective<Resultant(Parametric...), Resultant, Parametric...>;
     return Specific(function);
 }
 
 /**
-     * @brief         
-     *     Specify a callable object as a procedural call object.
-     * @details       
-     *     This function template is used to create a simple representation of a 
-     *     procedural call to any callable object.  This overload is used for 
-     *     lambda objects and user defined class call operator objects.  It can
-     *     also be used with function types to specify rather than deduce the 
-     *     return and parameter types.
-     * @tparam Typical
-     *     Type of the object.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     * @param[in] object
-     *     Reference to the object which will be called.
-     * @param[in] guide
-     *     Used for template argument deduction, value is ignored.
-     */
+ * @brief         
+ *     Specify a callable object as a procedural call object.
+ * @details       
+ *     This function template is used to create a simple representation of a 
+ *     procedural call to any callable object.  This overload is used for 
+ *     lambda objects and user defined class call operator objects.  It can
+ *     also be used with function types to specify rather than deduce the 
+ *     return and parameter types.
+ * @tparam Typical
+ *     Type of the object.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ * @param[in] object
+ *     Reference to the object which will be called.
+ * @param[in] guide
+ *     Used for template argument deduction, value is ignored.
+ */
 template <class Typical, class Resultant, class... Parametric>
 static constexpr SimplyObjective<Typical, Resultant, Parametric...>
-Procure(Typical& object, Functional<Resultant, Parametric...>* guide)
+Procure(
+    Typical&
+        object,
+    Functional<Resultant, Parametric...>*
+        guide)
 {
     using Specific = SimplyObjective<Typical, Resultant, Parametric...>;
     return Specific(object);
 }
 
 /**
-     * @brief         
-     *     Specify an object member function as a procedural call object.
-     * @details       
-     *     This function template is used to create a simple representation of a 
-     *     procedural call to an object member function.  Define the macro
-     *     PROCEDURE_MODULE_NOSTDCPP to prevent static assertions if the 
-     *     type_traits standard library header is not available.
-     * @tparam Typical
-     *     Type of the data object.
-     * @tparam MethodLocational
-     *     Pointer to member function type.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     * @param[in] object
-     *     Reference to the object for the member function call.
-     * @param[in] method
-     *     Pointer to the member function which will be called.
-     * @param[in] guide
-     *     Used for template argument deduction, value is ignored.
-     */
-template <
-    class Typical,
-    class MethodLocational,
-    class Resultant,
-    class... Parametric>
+ * @brief         
+ *     Specify an object member function as a procedural call object.
+ * @details       
+ *     This function template is used to create a simple representation of a 
+ *     procedural call to an object member function.  Define the macro
+ *     PROCEDURE_MODULE_NOSTDCPP to prevent static assertions if the 
+ *     type_traits standard library header is not available.
+ * @tparam Typical
+ *     Type of the data object.
+ * @tparam MethodLocational
+ *     Pointer to member function type.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ * @param[in] object
+ *     Reference to the object for the member function call.
+ * @param[in] method
+ *     Pointer to the member function which will be called.
+ * @param[in] guide
+ *     Used for template argument deduction, value is ignored.
+ */
+template <class Typical, class MethodLocational, class Resultant, class... Parametric>
 static constexpr SimplyMethodic<Typical, MethodLocational, Resultant, Parametric...>
 Procure(
-    Typical& object,
-    const MethodLocational method,
-    Functional<Resultant, Parametric...>* guide)
+    Typical&
+        object,
+    const MethodLocational
+        method,
+    Functional<Resultant, Parametric...>*
+        guide)
 {
 #ifndef PROCEDURE_MODULE_NOSTDCPP
     using namespace std;
@@ -772,77 +763,83 @@ Procure(
 }
 
 /**
-     * @brief         
-     *     Specify a function as a procedural call object.
-     * @details       
-     *     This function template is used to create a comparable representation
-     *     of a procedural call to a function.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     * @param[in] function
-     *     Reference to the function which will be called.
-     */
+ * @brief         
+ *     Specify a function as a procedural call object.
+ * @details       
+ *     This function template is used to create a comparable representation
+ *     of a procedural call to a function.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ * @param[in] function
+ *     Reference to the function which will be called.
+ */
 template <class Resultant, class... Parametric>
 static constexpr ComparablyObjective<Resultant(Parametric...), Resultant, Parametric...>
-ProcureComparably(Functional<Resultant, Parametric...>& function)
+ProcureComparably(
+    Functional<Resultant, Parametric...>&
+        function)
 {
     using Specific = ComparablyObjective<Resultant(Parametric...), Resultant, Parametric...>;
     return Specific(function);
 }
 
 /**
-     * @brief         
-     *     Specify a callable object as a procedural call object.
-     * @details       
-     *     This function template is used to create a comparable representation
-     *     of a procedural call to any callable object.  This overload is used 
-     *     for lambda objects and user defined class call operator objects.  It
-     *     can also be used with function types to specify rather than deduce 
-     *     the return and parameter types.
-     * @tparam Typical
-     *     Type of the object.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     * @param[in] object
-     *     Reference to the object which will be called.
-     * @param[in] guide
-     *     Used for template argument deduction, value is ignored.
-     */
+ * @brief         
+ *     Specify a callable object as a procedural call object.
+ * @details       
+ *     This function template is used to create a comparable representation
+ *     of a procedural call to any callable object.  This overload is used 
+ *     for lambda objects and user defined class call operator objects.  It
+ *     can also be used with function types to specify rather than deduce 
+ *     the return and parameter types.
+ * @tparam Typical
+ *     Type of the object.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ * @param[in] object
+ *     Reference to the object which will be called.
+ * @param[in] guide
+ *     Used for template argument deduction, value is ignored.
+ */
 template <class Typical, class Resultant, class... Parametric>
 static constexpr ComparablyObjective<Typical, Resultant, Parametric...>
-ProcureComparably(Typical& object, Functional<Resultant, Parametric...>* guide)
+ProcureComparably(
+    Typical&
+        object,
+    Functional<Resultant, Parametric...>*
+        guide)
 {
     using Specific = ComparablyObjective<Typical, Resultant, Parametric...>;
     return Specific(object);
 }
 
 /**
-     * @brief         
-     *     Specify an object member function as a procedural call object.
-     * @details       
-     *     This function template is used to create a comparable representation
-     *     of a procedural call to an object member function.  Define the macro
-     *     PROCEDURE_MODULE_NOSTDCPP to prevent static assertions if the 
-     *     type_traits standard library header is not available.
-     * @tparam Typical
-     *     Type of the data object.
-     * @tparam MethodLocational
-     *     Pointer to member function type.
-     * @tparam Resultant
-     *     Return type of the call.
-     * @tparam ...Parametric
-     *     Parameter pack which represents the parameter types of the call.
-     * @param[in] object
-     *     Reference to the object for the member function call.
-     * @param[in] method
-     *     Pointer to the member function which will be called.
-     * @param[in] guide
-     *     Used for template argument deduction, value is ignored.
-     */
+ * @brief         
+ *     Specify an object member function as a procedural call object.
+ * @details       
+ *     This function template is used to create a comparable representation
+ *     of a procedural call to an object member function.  Define the macro
+ *     PROCEDURE_MODULE_NOSTDCPP to prevent static assertions if the 
+ *     type_traits standard library header is not available.
+ * @tparam Typical
+ *     Type of the data object.
+ * @tparam MethodLocational
+ *     Pointer to member function type.
+ * @tparam Resultant
+ *     Return type of the call.
+ * @tparam ...Parametric
+ *     Parameter pack which represents the parameter types of the call.
+ * @param[in] object
+ *     Reference to the object for the member function call.
+ * @param[in] method
+ *     Pointer to the member function which will be called.
+ * @param[in] guide
+ *     Used for template argument deduction, value is ignored.
+ */
 template <
     class Typical,
     class MethodLocational,
@@ -850,9 +847,12 @@ template <
     class... Parametric>
 static constexpr ComparablyMethodic<Typical, MethodLocational, Resultant, Parametric...>
 ProcureComparably(
-    Typical& object,
-    const MethodLocational method,
-    Functional<Resultant, Parametric...>* guide)
+    Typical&
+        object,
+    const MethodLocational
+        method,
+    Functional<Resultant, Parametric...>*
+        guide)
 {
 #ifndef PROCEDURE_MODULE_NOSTDCPP
     using namespace std;

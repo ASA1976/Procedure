@@ -8,24 +8,31 @@
 
 using namespace std;
 using namespace procedure;
+using Abstract = const Procedural<void>&;
 
-const struct Class {
-    void operator()() const { cout << "Functor" << endl; }
-    void member() const { cout << "Member Function" << endl; }
-} Object;
-auto Lambda = [] { cout << "Lambda" << endl; };
-void Function() { cout << "Function" << endl; }
+struct Class {
+    void operator()() const { cout << "Functor Object" << endl; }
+    void nonstatic_member() const { cout << "Object Member Function" << endl; }
+    static void static_member() { cout << "Class Member Function" << endl; }
+};
 
-void Demonstrate(const Procedural<void>& call)
+void Function()
+{
+    cout << "Function Object" << endl;
+}
+
+void Demonstrate(Abstract call)
 {
     call();
 }
 
 int main()
 {
-    Demonstrate(Procure(Object, Guide<void>));
-    Demonstrate(Procure(Object, &Class::member, Guide<void>));
-    Demonstrate(Procure(Lambda, Guide<void>));
-    Demonstrate(Procure(Function, Guide<void>)); // Matched
-    Demonstrate(Procure(Function)); // Deduced
+    auto lambda = [] { cout << "Lambda Expression" << endl; };
+    const Class object;
+    Demonstrate(Procure(object, Guide<void>));
+    Demonstrate(Procure(object, &Class::nonstatic_member, Guide<void>));
+    Demonstrate(Procure(Class::static_member));
+    Demonstrate(Procure(Function));
+    Demonstrate(Procure(lambda, Guide<void>));
 }
