@@ -840,11 +840,7 @@ ProcureComparably(
  * @param[in] guide
  *     Used for template argument deduction, value is ignored.
  */
-template <
-    class Typical,
-    class MethodLocational,
-    class Resultant,
-    class... Parametric>
+template <class Typical, class MethodLocational, class Resultant, class... Parametric>
 static constexpr ComparablyMethodic<Typical, MethodLocational, Resultant, Parametric...>
 ProcureComparably(
     Typical&
